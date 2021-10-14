@@ -1,3 +1,6 @@
+from avaandmed.http.http_client import HttpClient
+
+
 class Avaandmed:
     """A client for accessing Avaadnmed API"""
 
@@ -6,11 +9,12 @@ class Avaandmed:
         self._key_id = key_id
         self._datasets = None
         self._organizations = None
-    
+        self._http_client = HttpClient(api_token, key_id)
+
     @property
     def api_token(self) -> str:
         return self._api_token
-        
+
     @property
     def key_id(self) -> str:
         return self._key_id
@@ -19,7 +23,7 @@ class Avaandmed:
     def datasets(self):
         if self._datasets is None:
             from avaandmed.entities.datasets import Datasets
-            self._datasets = Datasets()
+            self._datasets = Datasets(http_client=self._http_client)
         return self._datasets
 
     @property
