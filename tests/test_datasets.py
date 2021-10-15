@@ -1,7 +1,8 @@
 import pytest
 
 from avaandmed import Avaandmed
-from avaandmed.api_resources.datasets import Dataset, Datasets
+from avaandmed.api_resources.datasets import Datasets
+from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.exceptions import AvaandmedApiExcepiton
 
 DATASET_ID = '8d681e55-4118-41f5-b319-1d2bdd36408c'
