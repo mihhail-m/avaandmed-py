@@ -21,7 +21,7 @@ class Dataset(ApiResource):
     keywords: Optional[List[Any]]  # TODO
     categories: Optional[List[Any]]  # TODO
     regions: Optional[List[Any]]  # TODO
-    coord_ref_system: Optional[List[Any]]  # TODO
+    coordinate_reference_systems: Optional[List[Any]]  # TODO
     is_actual: Optional[bool]
     created_at: Optional[str]
     updated_at: Optional[str]
@@ -65,17 +65,18 @@ class Datasets:
     Collection class responsible for actions with Datasets.
     """
     _http_client: HttpClient
+    _DATASET_ENDPOINT = '/datasets'
 
     def __init__(self, http_client: HttpClient) -> None:
         self._http_client = http_client
 
     def retrieve_by_id(self, id: Optional[str]) -> Dataset:
-        url = f"/datasets/{id}"
+        url = f"{self._DATASET_ENDPOINT}/{id}"
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
     def retrieve_by_slug(self, slug: Optional[str]) -> Dataset:
-        url = f"/datasets/slug/{slug}"
+        url = f"{self._DATASET_ENDPOINT}/slug/{slug}"
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
