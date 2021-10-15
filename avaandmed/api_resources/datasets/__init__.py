@@ -1,6 +1,6 @@
 from typing import Any
+from avaandmed.api_resources import ApiResource
 from avaandmed.http.http_client import HttpClient, HttpMethod
-from .api_resource import ApiResource
 from typing import List, Optional
 
 

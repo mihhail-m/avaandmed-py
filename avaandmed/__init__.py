@@ -22,13 +22,13 @@ class Avaandmed:
     @property
     def datasets(self):
         if self._datasets is None:
-            from avaandmed.entities.datasets import Datasets
+            from avaandmed.api_resources.datasets import Datasets
             self._datasets = Datasets(http_client=self._http_client)
         return self._datasets
 
     @property
     def organizations(self):
         if self._organizations is None:
-            from avaandmed.entities.organizations import Organizations
+            from avaandmed.api_resources.organizations import Organizations
             self._organizations = Organizations()
         return self._organizations

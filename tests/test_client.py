@@ -1,8 +1,8 @@
 import os
-from avaandmed.entities.organizations import Organizations
-from avaandmed.entities.datasets import Datasets, Dataset
+from avaandmed.api_resources.organizations import Organizations
+from avaandmed.api_resources.datasets import Dataset, Datasets
 from avaandmed import Avaandmed
-from avaandmed.http.http_client import HttpClient, HttpMethod
+from avaandmed.http.http_client import HttpMethod
 
 API_TOKEN = os.getenv('AVAANDMED_KEY', 'none')
 KEY_ID = os.getenv('AVAANDMED_KEY_ID', 'none')
@@ -50,5 +50,5 @@ def test_dataset_retrieve_by_id():
 
 def test_dataset_retrieve_by_slug():
     dataset = client.datasets.retrieve_by_slug(DATASET_SLUG)
-    # print(dataset)
+    print(dataset)
     assert DATASET_SLUG == dataset.slug
