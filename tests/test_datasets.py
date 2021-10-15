@@ -2,6 +2,7 @@ import pytest
 
 from avaandmed import Avaandmed
 from avaandmed.api_resources.datasets import Dataset, Datasets
+from avaandmed.exceptions import AvaandmedApiExcepiton
 
 DATASET_ID = '8d681e55-4118-41f5-b319-1d2bdd36408c'
 DATASET_SLUG = 'soidukite-staatused-eestis'
@@ -25,7 +26,17 @@ def test_retrieve_by_id(datasets: Datasets):
     assert DATASET_ID == dataset.id
 
 
+def test_negative_retrieve_by_id(datasets: Datasets):
+    with pytest.raises(AvaandmedApiExcepiton):
+        datasets.retrieve_by_id('sdfsdfsd')
+
+
 def test_retrieve_by_slug(datasets: Datasets):
     dataset = datasets.retrieve_by_slug(DATASET_SLUG)
     assert isinstance(dataset, Dataset)
     assert DATASET_SLUG == dataset.slug
+
+
+def test_negative_retrieve_by_slug(datasets: Datasets):
+    with pytest.raises(AvaandmedApiExcepiton):
+        datasets.retrieve_by_slug('sdfsdf')
