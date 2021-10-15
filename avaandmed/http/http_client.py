@@ -45,14 +45,22 @@ class HttpClient:
         x_api_key = encode_key()
         self.__headers['X-API-KEY'] = x_api_key
         auth_url = f"{self.__BASE_URL}/auth/key-login"
-        r = requests.post(auth_url, headers=self.__headers)
 
-        if r.status_code != 201:
-            msg = r.json()['message']
+        try:
+            res = requests.post(auth_url, headers=self.__headers)
+            res.raise_for_status()
+
+        except requests.exceptions.HTTPError:
             raise AvaandmedApiExcepiton(
-                status=r.status_code, uri=r.url, msg=msg)
+                status=res.status_code,
+                uri=res.url,
+                msg=res.json()['message']
+            )
 
-        return r.json()['data']['accessToken']
+        except requests.exceptions.RequestException as ex:
+            raise SystemExit(ex)
+
+        return res.json()['data']['accessToken']
 
     def request(self, method: HttpMethod, url: str, data={}, lang: AllowedLang = AllowedLang.EN):
         """
@@ -61,9 +69,24 @@ class HttpClient:
         url = f"{self.__BASE_URL}{url}?lang={lang.value}"
         access_token = self.__get_token()
         self.__headers['Authorization'] = f"Bearer {access_token}"
-        res = requests.request(method=method.name,
-                               url=url,
-                               json=data,
-                               headers=self.__headers)
+
+        try:
+            res = requests.request(
+                method=method.name,
+                url=url,
+                json=data,
+                headers=self.__headers
+            )
+            res.raise_for_status()
+
+        except requests.exceptions.HTTPError as err:
+            raise AvaandmedApiExcepiton(
+                status=res.status_code,
+                uri=url,
+                msg=res.json()['message'],
+            )
+
+        except requests.exceptions.RequestException as ex:
+            raise SystemExit(ex)
 
         return res.json()['data']
