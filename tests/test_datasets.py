@@ -21,6 +21,7 @@ def test_json_to_model():
     assert isinstance(dataset, Dataset)
 
 
+@pytest.mark.skip(reason='dynamic dataset ID')
 def test_retrieve_by_id(datasets: Datasets):
     dataset = datasets.retrieve_by_id(DATASET_ID)
     assert isinstance(dataset, Dataset)
