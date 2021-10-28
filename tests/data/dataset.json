@@ -1,5 +1,120 @@
 {
-    "id": "some id",
-    "name": "dataset1",
-    "slug": "dataset-slug"
+    "data": {
+        "id": "8d681e55-4118-41f5-b319-1d2bdd36408c",
+        "status": "completed",
+        "nameEt": "Sõidukite staatused Eestis",
+        "nameEn": "Vehicle statuses in Estonia",
+        "slug": "soidukite-staatused-eestis",
+        "descriptionEt": "Eestis registreeritud autod ja nende staatused",
+        "descriptionEn": "Cars registered in Estonia and their statuses",
+        "maintainer": "Hardi Roosi",
+        "maintainerEmail": "hardi.roosi@transpordiamet.ee",
+        "maintainerPhone": "+37258031477",
+        "citations": null,
+        "conformities": [],
+        "southLatitude": null,
+        "northLatitude": null,
+        "westLongitude": null,
+        "eastLongitude": null,
+        "url": null,
+        "language": null,
+        "dataFrom": "2010-12-31T22:00:00.000Z",
+        "dataTo": null,
+        "updateIntervalUnit": "month",
+        "updateIntervalFrequency": 1,
+        "access": "public",
+        "availableTo": null,
+        "organizationId": "ca074268-c403-480e-b717-43642f5ee175",
+        "userId": "e61b966a-5063-441b-918f-d814a82ef266",
+        "landingPage": null,
+        "qualifiedAttribution": null,
+        "wasGeneratedBy": null,
+        "spatialResolution": null,
+        "geoportalIdentifier": null,
+        "geoportalKeywords": null,
+        "lineage": null,
+        "pixelSize": null,
+        "resourceType": null,
+        "topicCategories": [],
+        "spatialRepresentationType": null,
+        "spatialDataServiceType": null,
+        "temporalResolution": null,
+        "maturity": null,
+        "version": 1,
+        "versionNotes": null,
+        "isActual": true,
+        "publishedAt": "2021-10-27T13:56:06.974Z",
+        "createdAt": "2021-10-27T13:54:27.128Z",
+        "updatedAt": "2021-10-28T06:30:52.390Z",
+        "licence": {
+            "id": 31,
+            "name": "Creative Commons Autorile viitamine–Jagamine samadel tingimustel 3.0 Jurisdiktsiooniga sidumata",
+            "description": "õigus reprodutseerida ja jagada litsentsitud materjali kas tervikuna või osaliselt viidates Autorile, õigus toota ja reprodutseerida, jagades kohandatud materjali samadel tingimustel"
+        },
+        "user": {
+            "id": "e61b966a-5063-441b-918f-d814a82ef266",
+            "firstName": "HARDI",
+            "lastName": "ROOSI",
+            "slug": "hardi-roosi",
+            "email": "39701314713@eesti.ee",
+            "name": "HARDI ROOSI"
+        },
+        "organization": {
+            "id": "ca074268-c403-480e-b717-43642f5ee175",
+            "regCode": "70001490",
+            "name": "Transpordiamet",
+            "slug": "transpordiamet",
+            "contact": "www.transpordiamet.ee",
+            "contactEmail": "info@transpordiamet.ee",
+            "description": "Transpordiamet loodi 1. jaanuaril 2021 seniste Lennu-, Maantee- ja Veeteede Ameti ühendamisega (ning nende õigusjärgsena). Transpordiametist saab transpordiliikide ülene kompetentsikeskus ning ohutu, mugava ja kiire liiklemiskeskkonna arendaja. Amet lähtub oma tegevuses liikuvuse terviklikust kujundamisest, mille eesmärk on pakkuda inimestele ja kaupadele võimalikult mugavaid ja kiireid liikumislahendusi, kasutades ka erinevaid transpordiliike.",
+            "isPublicBody": true,
+            "notifications": []
+        },
+        "coordinateReferenceSystems": [],
+        "keywords": [
+            {
+                "id": 22306,
+                "name": "aeg",
+                "language": "et",
+                "keywordId": 22306,
+                "keywordEmsCategory": {
+                    "id": 32155,
+                    "emsCategoryId": 1,
+                    "keywordId": 22306
+                }
+            }
+        ],
+        "categories": [
+            {
+                "id": 14,
+                "name": "DEMOGRAAFIA. STATISTIKA"
+            }
+        ],
+        "regions": [
+            {
+                "id": 16,
+                "name": "Kogu Eesti",
+                "coordinates": "22.602805 59.084375,28.041905 59.443246, 27.400821 57.752806,22.203044 58.100591"
+            }
+        ],
+        "files": [
+            {
+                "id": "80ea5d12-6204-4f04-bbdd-3ee1a509f9c7",
+                "name": "Sõidukite staatused avaandmetena2 (1).csv",
+                "mimetype": "application/vnd.ms-excel",
+                "size": "139261692",
+                "datasetId": "f599567c-1078-4cbf-94ac-b715f5508139",
+                "metadata": {},
+                "processingStatus": "none",
+                "storageFilename": "80ea5d12-6204-4f04-bbdd-3ee1a509f9c7-Sõidukite-staatused-avaandmetena2-(1).csv"
+            }
+        ],
+        "parentDatasets": [],
+        "childDatasets": [],
+        "mapRegions": [
+            "Kogu Eesti"
+        ],
+        "isContentAllowed": true,
+        "name": "Sõidukite staatused Eestis"
+    }
 }

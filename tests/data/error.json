@@ -1,0 +1,5 @@
+{
+    "statusCode": 500,
+    "path": "/datasets/sdfsdf",
+    "message": "Internal server error"
+}
