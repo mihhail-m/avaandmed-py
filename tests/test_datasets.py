@@ -8,14 +8,15 @@ from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.exceptions import AvaandmedApiExcepiton
 from .utils import load_json, format_mock_url
 
+DATA_DIR = Path.cwd() / 'data'
 DATASET_ID = '8d681e55-4118-41f5-b319-1d2bdd36408c'
 DATASET_SLUG = 'soidukite-staatused-eestis'
 MOCK_GET_DATASET_ID_URL = 'https://avaandmed.eesti.ee/api/datasets/'
 MOCK_GET_DATASET_SLUG_URL = 'https://avaandmed.eesti.ee/api/datasets/slug/'
-MOCK_TOKEN_URL = f'https://avaandmed.eesti.ee/api/auth/key-login'
-MOCK_DATASET_FILE = Path('data/dataset.json')
-MOCK_ERROR_FILE = Path('data/error.json')
-MOCK_TOKEN_FILE = Path('data/token.json')
+MOCK_TOKEN_URL = 'https://avaandmed.eesti.ee/api/auth/key-login'
+MOCK_DATASET_FILE = DATA_DIR / 'dataset.json'
+MOCK_ERROR_FILE = DATA_DIR / 'error.json'
+MOCK_TOKEN_FILE = DATA_DIR / 'token.json'
 WRONG_SLUG = 'sdfsdf'
 WRONG_ID = 'sdfsdfsd'
 
