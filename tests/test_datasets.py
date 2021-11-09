@@ -5,18 +5,19 @@ from pathlib import Path
 from avaandmed import Avaandmed
 from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
-from avaandmed.exceptions import AvaandmedApiExcepiton
+from avaandmed.exceptions import AvaandmedApiExcepiton, AvaandmedException
 from .utils import load_json, format_mock_url
 
 DATA_DIR = Path.cwd() / 'data'
 DATASET_ID = '8d681e55-4118-41f5-b319-1d2bdd36408c'
 DATASET_SLUG = 'soidukite-staatused-eestis'
-MOCK_GET_DATASET_ID_URL = 'https://avaandmed.eesti.ee/api/datasets/'
-MOCK_GET_DATASET_SLUG_URL = 'https://avaandmed.eesti.ee/api/datasets/slug/'
+MOCK_GET_DATASET_ID_URL = 'https://avaandmed.eesti.ee/api/datasets'
+MOCK_GET_DATASET_SLUG_URL = 'https://avaandmed.eesti.ee/api/datasets/slug'
 MOCK_TOKEN_URL = 'https://avaandmed.eesti.ee/api/auth/key-login'
 MOCK_DATASET_FILE = DATA_DIR / 'dataset.json'
 MOCK_ERROR_FILE = DATA_DIR / 'error.json'
 MOCK_TOKEN_FILE = DATA_DIR / 'token.json'
+MOCK_DATASET_LIST_FILE = DATA_DIR / 'dataset_list.json'
 WRONG_SLUG = 'sdfsdf'
 WRONG_ID = 'sdfsdfsd'
 
@@ -98,3 +99,28 @@ def test_negative_retrieve_by_slug(datasets: Datasets):
         )
 
         datasets.retrieve_by_slug(WRONG_SLUG)
+
+
+@responses.activate
+def test_get_dataset_list(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        MOCK_GET_DATASET_ID_URL + '?limit=5',
+        json=load_json(MOCK_DATASET_LIST_FILE),
+        status=200
+    )
+    limit = 5
+    dataset_list = datasets.get_dataset_list(limit=limit)
+    assert dataset_list is not None
+    assert len(dataset_list) == limit
+
+
+def test_negative_dataset_list_limit_zero(datasets: Datasets):
+    with pytest.raises(AvaandmedException):
+        datasets.get_dataset_list(limit=0)
+
+
+def test_negative_dataset_list_negative_limit(datasets: Datasets):
+    with pytest.raises(AvaandmedException):
+        datasets.get_dataset_list(limit=-1)

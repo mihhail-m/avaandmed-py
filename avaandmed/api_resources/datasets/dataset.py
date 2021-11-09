@@ -56,3 +56,7 @@ class Dataset(ApiResource):
     pixel_size: Optional[str]
     resource_type: Optional[str]  # TODO
     topic_categories: Optional[List[str]]  # TODO
+
+
+class DatasetList(ApiResource):
+    __root__: List[Dataset]

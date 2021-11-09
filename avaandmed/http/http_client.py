@@ -62,11 +62,11 @@ class HttpClient:
 
         return res.json()['data']['accessToken']
 
-    def request(self, method: HttpMethod, url: str, data={}, lang: AllowedLang = AllowedLang.EN):
+    def request(self, method: HttpMethod, url: str, data={}):
         """
         Generic request method to make request to the API.
         """
-        url = f"{self.__BASE_URL}{url}?lang={lang.value}"
+        url = f"{self.__BASE_URL}{url}"
         access_token = self.__get_token()
         self.__headers['Authorization'] = f"Bearer {access_token}"
 

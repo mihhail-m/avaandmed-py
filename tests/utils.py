@@ -10,4 +10,4 @@ def load_json(path: Path):
 
 
 def format_mock_url(url: str, mock_value: str):
-    return f'{url}{mock_value}'
+    return f'{url}/{mock_value}'

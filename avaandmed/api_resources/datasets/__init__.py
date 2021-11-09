@@ -1,5 +1,7 @@
-from typing import Optional
-from .dataset import Dataset
+from typing import Optional, List
+
+from avaandmed.exceptions import AvaandmedException
+from .dataset import Dataset, DatasetList
 from avaandmed.http.http_client import HttpClient, HttpMethod
 
 
@@ -23,14 +25,15 @@ class Datasets:
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
-    def update(self):
-        pass
+    def get_dataset_list(self, limit: int = 20) -> List[Dataset]:
+        """
+        Retrieves list of datasets from /datasets endpoint.
+        By default returns 20 instances, but limit can be adjusted.
+        """
+        if limit <= 0:
+            raise AvaandmedException('Limit cannot 0 or less.')
 
-    def delete(self):
-        pass
-
-    def create(self):
-        pass
-
-    def list(self):
-        pass
+        url = f"{self._DATASET_ENDPOINT}?limit={limit}"
+        datasets_json = self._http_client.request(HttpMethod.GET, url=url)
+        dataset_list: DatasetList = DatasetList.parse_obj(datasets_json)
+        return dataset_list.__root__

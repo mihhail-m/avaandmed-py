@@ -1,0 +1,190 @@
+{
+    "data": [
+        {
+            "id": "ef1775b7-83df-41ca-b7ff-551ba415ea9d",
+            "nameEt": "Sotsiaalmaksu hüvitamine vähenenud töövõimega töötaja eest",
+            "nameEn": "Refund of social tax for an employee with reduced working capacity",
+            "slug": "sotsiaalmaksu-huvitamine-vahenenud-toovoimega-tootaja-eest",
+            "descriptionEt": "Vähenenud töövõimega töötaja eest sotsiaalmaksu hüvitamise statistika",
+            "descriptionEn": "Refund of social tax for an employee with reduced working capacity",
+            "createdAt": "2021-11-09T07:47:51.531Z",
+            "updatedAt": "2021-11-09T07:49:08.348Z",
+            "user": {
+                "id": "98303ff6-e64e-4ac0-8aef-899bd6e81230",
+                "firstName": "OLGA",
+                "lastName": "TIŠKO",
+                "slug": "olga-tisko",
+                "email": "github@tootukassa.ee",
+                "name": "OLGA TIŠKO"
+            },
+            "organization": {
+                "id": "1ec19d59-10a7-4cd0-97a7-6c1b94e31ba4",
+                "regCode": "74000085",
+                "name": "Eesti Töötukassa",
+                "slug": "eesti-tootukassa",
+                "contact": "Olga Tiško",
+                "contactEmail": "olga.tisko@tootukassa.ee",
+                "description": "Eesti Töötukassa on 2002. aastal loodud avalik-õiguslik organisatsioon, mis korraldab töötuskindlustust eesmärgiga tagada:\n•\ttöötuse korral tööotsingute ajaks kaotatud sissetuleku osaline kompenseerimine;\n•\ttöölepingu ülesütlemise hüvitamine töötajale koondamise korral; \n•\ttöötajate nõuete kaitse tööandja maksejõuetuse korral, \nning viib ellu tööpoliitikat eesmärgiga tagada: \n•\ttööealise elanikkonna võimalikult kõrge tööhõive;\n•\tpikaajalise töötuse ja tööturult tõrjutuse ennetamine.\n\nTöötukassa kliendid on koolinoored, töötajad, tööotsijad ning tööandjad.",
+                "isPublicBody": true,
+                "notifications": [
+                    "DATASET_COMMENTED",
+                    "DATASET_RATED",
+                    "DATASET_ACCESS_REQUEST",
+                    "DATA_WISH_NEW",
+                    "DATASET_PRIVACY_VIOLATION"
+                ]
+            },
+            "name": "Sotsiaalmaksu hüvitamine vähenenud töövõimega töötaja eest"
+        },
+        {
+            "id": "4df8782a-9711-4d34-bd0f-5d1afcaf7910",
+            "nameEt": "Töötasu toetus",
+            "nameEn": "Wage subsidy",
+            "slug": "tootasu-toetus",
+            "descriptionEt": "Töötasu toetuse määramiste statistika",
+            "descriptionEn": "Wage subsidy statistics",
+            "createdAt": "2021-11-09T07:42:27.371Z",
+            "updatedAt": "2021-11-09T07:44:05.897Z",
+            "user": {
+                "id": "98303ff6-e64e-4ac0-8aef-899bd6e81230",
+                "firstName": "OLGA",
+                "lastName": "TIŠKO",
+                "slug": "olga-tisko",
+                "email": "github@tootukassa.ee",
+                "name": "OLGA TIŠKO"
+            },
+            "organization": {
+                "id": "1ec19d59-10a7-4cd0-97a7-6c1b94e31ba4",
+                "regCode": "74000085",
+                "name": "Eesti Töötukassa",
+                "slug": "eesti-tootukassa",
+                "contact": "Olga Tiško",
+                "contactEmail": "olga.tisko@tootukassa.ee",
+                "description": "Eesti Töötukassa on 2002. aastal loodud avalik-õiguslik organisatsioon, mis korraldab töötuskindlustust eesmärgiga tagada:\n•\ttöötuse korral tööotsingute ajaks kaotatud sissetuleku osaline kompenseerimine;\n•\ttöölepingu ülesütlemise hüvitamine töötajale koondamise korral; \n•\ttöötajate nõuete kaitse tööandja maksejõuetuse korral, \nning viib ellu tööpoliitikat eesmärgiga tagada: \n•\ttööealise elanikkonna võimalikult kõrge tööhõive;\n•\tpikaajalise töötuse ja tööturult tõrjutuse ennetamine.\n\nTöötukassa kliendid on koolinoored, töötajad, tööotsijad ning tööandjad.",
+                "isPublicBody": true,
+                "notifications": [
+                    "DATASET_COMMENTED",
+                    "DATASET_RATED",
+                    "DATASET_ACCESS_REQUEST",
+                    "DATA_WISH_NEW",
+                    "DATASET_PRIVACY_VIOLATION"
+                ]
+            },
+            "name": "Töötasu toetus"
+        },
+        {
+            "id": "49874402-fdfd-4cd2-8a43-2d8ddb7a3afd",
+            "nameEt": "Töötasu hüvitis",
+            "nameEn": "Wage benefit",
+            "slug": "tootasu-huvitis",
+            "descriptionEt": " Töötasu hüvitise määramiste statistika",
+            "descriptionEn": "Remuneration benefit statistics",
+            "createdAt": "2021-11-09T07:34:09.179Z",
+            "updatedAt": "2021-11-09T07:38:08.842Z",
+            "user": {
+                "id": "98303ff6-e64e-4ac0-8aef-899bd6e81230",
+                "firstName": "OLGA",
+                "lastName": "TIŠKO",
+                "slug": "olga-tisko",
+                "email": "github@tootukassa.ee",
+                "name": "OLGA TIŠKO"
+            },
+            "organization": {
+                "id": "1ec19d59-10a7-4cd0-97a7-6c1b94e31ba4",
+                "regCode": "74000085",
+                "name": "Eesti Töötukassa",
+                "slug": "eesti-tootukassa",
+                "contact": "Olga Tiško",
+                "contactEmail": "olga.tisko@tootukassa.ee",
+                "description": "Eesti Töötukassa on 2002. aastal loodud avalik-õiguslik organisatsioon, mis korraldab töötuskindlustust eesmärgiga tagada:\n•\ttöötuse korral tööotsingute ajaks kaotatud sissetuleku osaline kompenseerimine;\n•\ttöölepingu ülesütlemise hüvitamine töötajale koondamise korral; \n•\ttöötajate nõuete kaitse tööandja maksejõuetuse korral, \nning viib ellu tööpoliitikat eesmärgiga tagada: \n•\ttööealise elanikkonna võimalikult kõrge tööhõive;\n•\tpikaajalise töötuse ja tööturult tõrjutuse ennetamine.\n\nTöötukassa kliendid on koolinoored, töötajad, tööotsijad ning tööandjad.",
+                "isPublicBody": true,
+                "notifications": [
+                    "DATASET_COMMENTED",
+                    "DATASET_RATED",
+                    "DATASET_ACCESS_REQUEST",
+                    "DATA_WISH_NEW",
+                    "DATASET_PRIVACY_VIOLATION"
+                ]
+            },
+            "name": "Töötasu hüvitis"
+        },
+        {
+            "id": "dcc2f258-9a61-48c1-94cf-fe8de3ad1b79",
+            "nameEt": "Maksejõuetushüvitis",
+            "nameEn": "Insolvency benefit",
+            "slug": "maksejouetushuvitis",
+            "descriptionEt": "maksejõuetushüvitise statistika",
+            "descriptionEn": "insolvency benefit statistics",
+            "createdAt": "2021-11-09T07:23:45.939Z",
+            "updatedAt": "2021-11-09T07:26:02.810Z",
+            "user": {
+                "id": "98303ff6-e64e-4ac0-8aef-899bd6e81230",
+                "firstName": "OLGA",
+                "lastName": "TIŠKO",
+                "slug": "olga-tisko",
+                "email": "github@tootukassa.ee",
+                "name": "OLGA TIŠKO"
+            },
+            "organization": {
+                "id": "1ec19d59-10a7-4cd0-97a7-6c1b94e31ba4",
+                "regCode": "74000085",
+                "name": "Eesti Töötukassa",
+                "slug": "eesti-tootukassa",
+                "contact": "Olga Tiško",
+                "contactEmail": "olga.tisko@tootukassa.ee",
+                "description": "Eesti Töötukassa on 2002. aastal loodud avalik-õiguslik organisatsioon, mis korraldab töötuskindlustust eesmärgiga tagada:\n•\ttöötuse korral tööotsingute ajaks kaotatud sissetuleku osaline kompenseerimine;\n•\ttöölepingu ülesütlemise hüvitamine töötajale koondamise korral; \n•\ttöötajate nõuete kaitse tööandja maksejõuetuse korral, \nning viib ellu tööpoliitikat eesmärgiga tagada: \n•\ttööealise elanikkonna võimalikult kõrge tööhõive;\n•\tpikaajalise töötuse ja tööturult tõrjutuse ennetamine.\n\nTöötukassa kliendid on koolinoored, töötajad, tööotsijad ning tööandjad.",
+                "isPublicBody": true,
+                "notifications": [
+                    "DATASET_COMMENTED",
+                    "DATASET_RATED",
+                    "DATASET_ACCESS_REQUEST",
+                    "DATA_WISH_NEW",
+                    "DATASET_PRIVACY_VIOLATION"
+                ]
+            },
+            "name": "Maksejõuetushüvitis"
+        },
+        {
+            "id": "2b9b71f5-2ecb-49c4-a31c-99312fcc2ce8",
+            "nameEt": "Töötuskindlustushüvitis",
+            "nameEn": "Unemployment insurance benefit",
+            "slug": "tootuskindlustushuvitis",
+            "descriptionEt": "töötuskindlustushüvitise statistika",
+            "descriptionEn": "statistics on unemployment insurance benefits.",
+            "createdAt": "2021-11-09T07:12:56.229Z",
+            "updatedAt": "2021-11-09T07:20:31.427Z",
+            "user": {
+                "id": "98303ff6-e64e-4ac0-8aef-899bd6e81230",
+                "firstName": "OLGA",
+                "lastName": "TIŠKO",
+                "slug": "olga-tisko",
+                "email": "github@tootukassa.ee",
+                "name": "OLGA TIŠKO"
+            },
+            "organization": {
+                "id": "1ec19d59-10a7-4cd0-97a7-6c1b94e31ba4",
+                "regCode": "74000085",
+                "name": "Eesti Töötukassa",
+                "slug": "eesti-tootukassa",
+                "contact": "Olga Tiško",
+                "contactEmail": "olga.tisko@tootukassa.ee",
+                "description": "Eesti Töötukassa on 2002. aastal loodud avalik-õiguslik organisatsioon, mis korraldab töötuskindlustust eesmärgiga tagada:\n•\ttöötuse korral tööotsingute ajaks kaotatud sissetuleku osaline kompenseerimine;\n•\ttöölepingu ülesütlemise hüvitamine töötajale koondamise korral; \n•\ttöötajate nõuete kaitse tööandja maksejõuetuse korral, \nning viib ellu tööpoliitikat eesmärgiga tagada: \n•\ttööealise elanikkonna võimalikult kõrge tööhõive;\n•\tpikaajalise töötuse ja tööturult tõrjutuse ennetamine.\n\nTöötukassa kliendid on koolinoored, töötajad, tööotsijad ning tööandjad.",
+                "isPublicBody": true,
+                "notifications": [
+                    "DATASET_COMMENTED",
+                    "DATASET_RATED",
+                    "DATASET_ACCESS_REQUEST",
+                    "DATA_WISH_NEW",
+                    "DATASET_PRIVACY_VIOLATION"
+                ]
+            },
+            "name": "Töötuskindlustushüvitis"
+        }
+    ],
+    "metadata": {
+        "lang": "et",
+        "page": 1,
+        "limit": 5,
+        "total": 709
+    }
+}
