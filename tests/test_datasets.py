@@ -1,25 +1,33 @@
 import pytest
 import responses
 from pathlib import Path
+from typing import List
 
 from avaandmed import Avaandmed
 from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.exceptions import AvaandmedApiExcepiton, AvaandmedException
-from .utils import load_json, format_mock_url
+from .utils import load_json
 
-DATA_DIR = Path.cwd() / 'data'
+DATA_DIR = Path('data')
 DATASET_ID = '8d681e55-4118-41f5-b319-1d2bdd36408c'
 DATASET_SLUG = 'soidukite-staatused-eestis'
-MOCK_GET_DATASET_ID_URL = 'https://avaandmed.eesti.ee/api/datasets'
-MOCK_GET_DATASET_SLUG_URL = 'https://avaandmed.eesti.ee/api/datasets/slug'
+WRONG_SLUG = 'sdfsdf'
+WRONG_ID = 'sdfsdfsd'
+BASE_URL = 'https://avaandmed.eesti.ee/api/datasets'
 MOCK_TOKEN_URL = 'https://avaandmed.eesti.ee/api/auth/key-login'
 MOCK_DATASET_FILE = DATA_DIR / 'dataset.json'
 MOCK_ERROR_FILE = DATA_DIR / 'error.json'
 MOCK_TOKEN_FILE = DATA_DIR / 'token.json'
 MOCK_DATASET_LIST_FILE = DATA_DIR / 'dataset_list.json'
-WRONG_SLUG = 'sdfsdf'
-WRONG_ID = 'sdfsdfsd'
+
+
+def join_base_url_values(path_values: List[str]):
+    """
+    Joins values in list and base url into valid path.
+    Ex.: baseurl/value/value
+    """
+    return f"{BASE_URL}/{'/'.join(path_values)}"
 
 
 @pytest.fixture
@@ -48,7 +56,7 @@ def test_retrieve_by_id(datasets: Datasets):
     mock_post_auth()
     responses.add(
         responses.GET,
-        format_mock_url(MOCK_GET_DATASET_ID_URL, DATASET_ID),
+        join_base_url_values([DATASET_ID]),
         json=load_json(MOCK_DATASET_FILE),
         status=200
     )
@@ -64,7 +72,7 @@ def test_negative_retrieve_by_id(datasets: Datasets):
         mock_post_auth()
         responses.add(
             responses.GET,
-            format_mock_url(MOCK_GET_DATASET_ID_URL, WRONG_ID),
+            join_base_url_values([WRONG_ID]),
             json=load_json(MOCK_ERROR_FILE),
             status=404
         )
@@ -77,7 +85,7 @@ def test_retrieve_by_slug(datasets: Datasets):
     mock_post_auth()
     responses.add(
         responses.GET,
-        format_mock_url(MOCK_GET_DATASET_SLUG_URL, DATASET_SLUG),
+        join_base_url_values(['slug', DATASET_SLUG]),
         json=load_json(MOCK_DATASET_FILE),
         status=200
     )
@@ -93,7 +101,7 @@ def test_negative_retrieve_by_slug(datasets: Datasets):
         mock_post_auth()
         responses.add(
             responses.GET,
-            format_mock_url(MOCK_GET_DATASET_SLUG_URL, WRONG_SLUG),
+            join_base_url_values(['slug', WRONG_SLUG]),
             json=load_json(MOCK_ERROR_FILE),
             status=404
         )
@@ -106,7 +114,7 @@ def test_get_dataset_list(datasets: Datasets):
     mock_post_auth()
     responses.add(
         responses.GET,
-        MOCK_GET_DATASET_ID_URL + '?limit=5',
+        BASE_URL + '?limit=5',
         json=load_json(MOCK_DATASET_LIST_FILE),
         status=200
     )
