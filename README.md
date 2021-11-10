@@ -4,6 +4,9 @@
 - Official [Avaandmed API Swagger](https://avaandmed.eesti.ee/api/dataset-docs/#/)
 - Official general [documentation](https://avaandmed.eesti.ee/instructions/api-uldjuhend) about API. Available only in Estonian.
 
+## Requirements
+- Python 3.6+
+
 ## Usage
 TBD...
 or see unit tests in the **tests** folder to get an idea how this library will be used.
@@ -24,6 +27,8 @@ pip install -r requirements.txt
 
 [Reponses](https://github.com/getsentry/responses) library is used for mocking responses from Avaadmed API. 
 
+[tox](https://tox.wiki/en/latest/index.html) is used to run tests with different Python versions.
+
 All data for testing is available in **tests/data** folder.
 
 ```
@@ -31,3 +36,8 @@ cd tests
 pytest # to run all tests
 pytest path/to/test_file.py # to run specific set of tests
 ```
+
+Or if you want to use `tox` just run in the root of the folder and it should run test for all Python versions specified in `tox.ini` file.
+However, you probably gonna need to have multiple Python versions on your machine to test with each version. 
+
+Otherwise it will only for tests for version that is currently installed.
