@@ -7,10 +7,10 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 setup(
     name='avaandmed',
     version='0.0.1.dev1',
-    description='Python library for Avaadnmed portal API',
+    description='Python library for Avaandmed(Open Data) portal API',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='', # TODO
+    url='https://github.com/Michanix/avaandmed-py',
     author='Mihhail Matišinets',
     author_email='mihhail.matisinets@gmail.com',
     classifiers=[
@@ -24,6 +24,6 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
     ],
-    packages=find_packages(where='avaandmed'),
+    packages=find_packages(exclude=['tests']),
     python_requires='>=3.6, <4',
 )
