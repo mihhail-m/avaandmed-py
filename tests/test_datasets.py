@@ -148,3 +148,24 @@ def test_get_datasets_total(datasets: Datasets):
     total = datasets.get_total()
     assert total is not None
     assert isinstance(total, int)
+
+
+@responses.activate
+def test_get_mimetypes(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        BASE_URL + '/mimetypes/distinct',
+        json={
+            'data': [
+                'application/pdf',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'text/xml'
+            ]
+        },
+        status=200
+    )
+
+    mimetypes = datasets.get_distinct_mimetypes()
+    assert mimetypes is not None

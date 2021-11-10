@@ -51,3 +51,11 @@ class Datasets:
         url = f"{self._DATASET_ENDPOINT}/total"
         total = self._http_client.request(HttpMethod.GET, url=url)
         return total
+
+    def get_distinct_mimetypes(self) -> List[str]:
+        """
+        Returns distinct mimetypes used by API.
+        """
+        url = f"{self._DATASET_ENDPOINT}/mimetypes/distinct"
+        mimetypes = self._http_client.request(HttpMethod.GET, url=url)
+        return mimetypes
