@@ -1,8 +1,8 @@
-from typing import Optional, List
+from typing import List
 
 from avaandmed.exceptions import AvaandmedException
-from .dataset import Dataset, DatasetList
 from avaandmed.http.http_client import HttpClient, HttpMethod
+from .dataset import Dataset, DatasetList
 
 
 class Datasets:
@@ -15,12 +15,18 @@ class Datasets:
     def __init__(self, http_client: HttpClient) -> None:
         self._http_client = http_client
 
-    def retrieve_by_id(self, id: Optional[str]) -> Dataset:
+    def retrieve_by_id(self, id: str) -> Dataset:
+        """
+        Returns Dataset instance with specified id.
+        """
         url = f"{self._DATASET_ENDPOINT}/{id}"
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
-    def retrieve_by_slug(self, slug: Optional[str]) -> Dataset:
+    def retrieve_by_slug(self, slug: str) -> Dataset:
+        """
+        Returns Dataset instance with specified slug.
+        """
         url = f"{self._DATASET_ENDPOINT}/slug/{slug}"
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
@@ -37,3 +43,11 @@ class Datasets:
         datasets_json = self._http_client.request(HttpMethod.GET, url=url)
         dataset_list: DatasetList = DatasetList.parse_obj(datasets_json)
         return dataset_list.__root__
+
+    def get_total(self) -> int:
+        """
+        Returns total amount of datasets present at the moment.
+        """
+        url = f"{self._DATASET_ENDPOINT}/total"
+        total = self._http_client.request(HttpMethod.GET, url=url)
+        return total

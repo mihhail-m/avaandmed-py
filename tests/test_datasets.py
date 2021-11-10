@@ -118,6 +118,7 @@ def test_get_dataset_list(datasets: Datasets):
         json=load_json(MOCK_DATASET_LIST_FILE),
         status=200
     )
+
     limit = 5
     dataset_list = datasets.get_dataset_list(limit=limit)
     assert dataset_list is not None
@@ -132,3 +133,18 @@ def test_negative_dataset_list_limit_zero(datasets: Datasets):
 def test_negative_dataset_list_negative_limit(datasets: Datasets):
     with pytest.raises(AvaandmedException):
         datasets.get_dataset_list(limit=-1)
+
+
+@responses.activate
+def test_get_datasets_total(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        BASE_URL + '/total',
+        json={'data': 123},
+        status=200
+    )
+
+    total = datasets.get_total()
+    assert total is not None
+    assert isinstance(total, int)
