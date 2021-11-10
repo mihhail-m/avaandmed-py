@@ -37,7 +37,6 @@ pytest # to run all tests
 pytest path/to/test_file.py # to run specific set of tests
 ```
 
-Or if you want to use `tox` just run in the root of the folder and it should run test for all Python versions specified in `tox.ini` file.
+Or if you want to use `tox` just run in the root of the folder and it should run tests for all Python versions specified in `tox.ini` file.
 However, you probably gonna need to have multiple Python versions on your machine to test with each version. 
-
 Otherwise it will only for tests for version that is currently installed.
