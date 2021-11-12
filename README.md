@@ -1,4 +1,6 @@
 # avaandmed-py
+[![build](https://github.com/Michanix/avaandmed-py/actions/workflows/avaandmed.yml/badge.svg?branch=main)](https://github.com/Michanix/avaandmed-py/actions/workflows/avaandmed.yml)
+[![codecov](https://codecov.io/gh/Michanix/avaandmed-py/branch/main/graph/badge.svg?token=DS5MNSZOII)](https://codecov.io/gh/Michanix/avaandmed-py)
 
 ## Documentation
 - Official [Avaandmed API Swagger](https://avaandmed.eesti.ee/api/dataset-docs/#/)
