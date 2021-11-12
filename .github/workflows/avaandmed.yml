@@ -43,7 +43,7 @@ jobs:
         if-no-files-found: error
     - name: Upload coverage.xml to Codecov
       if: ${{matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'}}
-      uses: codecov/codecov-actions@v2
+      uses: codecov/codecov-action@v2
       with:
         token: ${{secrets.CODECOV_TOKEN}} # should be removed once repo is public
         files: ./tests/coverage.xml
