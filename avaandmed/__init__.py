@@ -4,12 +4,12 @@ from avaandmed.http.http_client import HttpClient
 class Avaandmed:
     """A client for accessing Avaadnmed API"""
 
-    def __init__(self, api_token: str, key_id: str) -> None:
+    def __init__(self, api_token: str, key_id: str, base_hostname: str = 'avaandmed.eesti.ee') -> None:
         self._api_token = api_token
         self._key_id = key_id
         self._datasets = None
         self._organizations = None
-        self._http_client = HttpClient(api_token, key_id)
+        self._http_client = HttpClient(base_hostname, api_token, key_id)
 
     @property
     def api_token(self) -> str:
