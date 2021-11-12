@@ -1,6 +1,6 @@
 # avaandmed-py
 
-[![Build Status](https://github.com/Michanix/avaandmed-py/actions/workflows/avaandmed.yml/badge.svg)](https://github.com/Michanix/avaandmed-py/)
+[![build](https://github.com/Michanix/avaandmed-py/actions/workflows/avaandmed.yml/badge.svg)](https://github.com/Michanix/avaandmed-py/)
 [![codecov](https://codecov.io/gh/Michanix/avaandmed-py/branch/main/graph/badge.svg?token=DS5MNSZOII)](https://codecov.io/gh/Michanix/avaandmed-py)
 
 ## Documentation
