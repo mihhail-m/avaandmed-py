@@ -2,7 +2,8 @@ from typing import List
 
 from avaandmed.exceptions import AvaandmedException
 from avaandmed.http.http_client import HttpClient, HttpMethod
-from .dataset import Dataset, DatasetList
+from .dataset import Dataset
+from pydantic import parse_obj_as
 
 
 class Datasets:
@@ -41,8 +42,8 @@ class Datasets:
 
         url = f"{self._DATASET_ENDPOINT}?limit={limit}"
         datasets_json = self._http_client.request(HttpMethod.GET, url=url)
-        dataset_list: DatasetList = DatasetList.parse_obj(datasets_json)
-        return dataset_list.__root__
+        dataset_list = parse_obj_as(List[Dataset], datasets_json)
+        return dataset_list
 
     def get_total(self) -> int:
         """
