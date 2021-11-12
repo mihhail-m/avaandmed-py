@@ -1,5 +1,8 @@
 # avaandmed-py
 
+[![Build Status](https://github.com/Michanix/avaandmed-py/actions/workflows/avaandmed.yml/badge.svg)](https://github.com/Michanix/avaandmed-py/)
+[![codecov](https://codecov.io/gh/Michanix/avaandmed-py/branch/main/graph/badge.svg?token=DS5MNSZOII)](https://codecov.io/gh/Michanix/avaandmed-py)
+
 ## Documentation
 - Official [Avaandmed API Swagger](https://avaandmed.eesti.ee/api/dataset-docs/#/)
 - Official general [documentation](https://avaandmed.eesti.ee/instructions/api-uldjuhend) about API. Available only in Estonian.
