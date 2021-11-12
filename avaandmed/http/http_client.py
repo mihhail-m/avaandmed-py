@@ -25,13 +25,13 @@ class HttpClient:
         'content-Type': 'application/json'
     }
     __SCHEME = 'https'
-    __HOSTNAME = 'avaandmed.eesti.ee'
     __BASE_ENDPOINT = 'api'
-    __BASE_URL = f"{__SCHEME}://{__HOSTNAME}/{__BASE_ENDPOINT}"
 
-    def __init__(self, api_key: str = None, key_id: str = None) -> None:
+    def __init__(self, hostname: str, api_key: str = None, key_id: str = None) -> None:
         self.__api_key = api_key
         self.__key_id = key_id
+        self.__HOSTNAME = hostname
+        self.__BASE_URL = f"{self.__SCHEME}://{self.__HOSTNAME}/{self.__BASE_ENDPOINT}"
 
     def __get_token(self) -> str:
         """

@@ -34,6 +34,8 @@ jobs:
         PLATFORM: ${{matrix.os}}
         AVAANDMED_KEY: ${{secrets.AVAANDMED_KEY}} 
         AVAANDMED_KEY_ID: ${{secrets.AVAANDMED_KEY_ID}}
+        AVAANDMED_TEST_KEY: ${{secrets.AVAANDMED_TEST_KEY}}
+        AVAANDMED_TEST_KEY_ID: ${{secrets.AVAANDMED_TEST_KEY_ID}}
     - name: Upload coverage.xml to artifacts
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
       uses: actions/upload-artifact@v2
