@@ -35,17 +35,17 @@ jobs:
         AVAANDMED_KEY: ${{secrets.AVAANDMED_KEY}} 
         AVAANDMED_KEY_ID: ${{secrets.AVAANDMED_KEY_ID}}
     - name: Upload coverage.xml to artifacts
-        if: ${{matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'}}
-        uses: artifacts/upload-artifacts@v2
-        with:
-          name: tox report coverage
-           path: tests/coverage.xml
-           if-no-files-found: error
+      if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
+      uses: artifacts/upload-artifacts@v2
+      with:
+        name: tox report coverage
+        path: tests/coverage.xml
+        if-no-files-found: error
     - name: Upload coverage.xml to Codecov
-        if: ${{matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'}}
-        uses: codecov/codecov-actions@v2
-        with:
-          token: ${{secrets.CODECOV_TOKEN}} # should be removed once repo is public
-          files: ./tests/coverage.xml
-          name: codecov-umbrella
-          fail_ci_if_error: true
+      if: ${{matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9'}}
+      uses: codecov/codecov-actions@v2
+      with:
+        token: ${{secrets.CODECOV_TOKEN}} # should be removed once repo is public
+        files: ./tests/coverage.xml
+        name: codecov-umbrella
+        fail_ci_if_error: true
