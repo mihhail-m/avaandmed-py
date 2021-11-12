@@ -36,7 +36,7 @@ jobs:
         AVAANDMED_KEY_ID: ${{secrets.AVAANDMED_KEY_ID}}
     - name: Upload coverage.xml to artifacts
       if: ${{ matrix.os == 'ubuntu-latest' && matrix.python-version == '3.9' }}
-      uses: actions/upload-artifacts@v2
+      uses: actions/upload-artifact@v2
       with:
         name: tox report coverage
         path: tests/coverage.xml
