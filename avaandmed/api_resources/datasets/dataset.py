@@ -23,7 +23,6 @@ class Dataset(ApiResource):
     is_actual: Optional[bool]
     created_at: Optional[str]
     updated_at: Optional[str]
-    deleted_at: Optional[str]
     name_et: Optional[str]
     name_en: Optional[str]
     description_et: Optional[str]
@@ -33,13 +32,12 @@ class Dataset(ApiResource):
     maintainer_phone: Optional[str]
     citations: Optional[List[Any]]  # TODO
     conformities: Optional[List[Any]]  # TODO
-    south_lat: Optional[str]
-    north_lat: Optional[str]
-    west_lon: Optional[str]
-    east_long: Optional[str]
+    south_latitude: Optional[str]
+    north_latitude: Optional[str]
+    west_longitude: Optional[str]
+    east_longitude: Optional[str]
     language: Optional[str]
-    license: Optional[Any]  # TODO
-    license_id: Optional[int]
+    licence: Optional[Any]  # TODO Fix type
     data_from: Optional[str]
     data_to: Optional[str]
     update_interval_unit: Optional[str]  # TODO
@@ -50,13 +48,21 @@ class Dataset(ApiResource):
     qualified_attribution: Optional[str]
     was_generated_by: Optional[str]
     spatial_resolution: Optional[str]
+    spatial_representation_type: Optional[str]
+    spatial_data_service_type: Optional[str]
     geoportal_identifier: Optional[str]
     geoportal_keywords: Optional[str]
     lineage: Optional[str]
     pixel_size: Optional[str]
     resource_type: Optional[str]  # TODO
     topic_categories: Optional[List[str]]  # TODO
+    maturity: Optional[str]
+    temporal_resolution: Optional[str]
+    version_notes: Optional[str]
+    parent_datasets: Optional[List['Dataset']]
+    child_datasets: Optional[List['Dataset']]
+    map_regions: Optional[List[str]]
+    is_content_allowed: Optional[bool]
 
 
-class DatasetList(ApiResource):
-    __root__: List[Dataset]
+Dataset.update_forward_refs()
