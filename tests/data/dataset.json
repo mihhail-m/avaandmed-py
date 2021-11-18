@@ -42,7 +42,7 @@
         "language": null,
         "dataFrom": "2010-12-31T22:00:00.000Z",
         "dataTo": null,
-        "updateIntervalUnit": "month",
+        "updateIntervalUnit": "notPlanned",
         "updateIntervalFrequency": 1,
         "access": "public",
         "availableTo": null,
@@ -56,8 +56,28 @@
         "geoportalKeywords": null,
         "lineage": null,
         "pixelSize": null,
-        "resourceType": null,
-        "topicCategories": [],
+        "resourceType": "dataset",
+        "topicCategories": [
+            "biota",
+            "boundaries",
+            "climatologyMeteorologyAtmosphere",
+            "economy",
+            "elevation",
+            "environment",
+            "farming",
+            "geoscientificInformation",
+            "health",
+            "imageryBaseMapsEarthCover",
+            "inlandWaters",
+            "intelligenceMilitary",
+            "location",
+            "oceans",
+            "planningCadastre",
+            "society",
+            "structure",
+            "transportation",
+            "utilitiesCommunication"
+        ],
         "spatialRepresentationType": null,
         "spatialDataServiceType": null,
         "temporalResolution": null,
@@ -90,7 +110,13 @@
             "contactEmail": "info@transpordiamet.ee",
             "description": "Transpordiamet loodi 1. jaanuaril 2021 seniste Lennu-, Maantee- ja Veeteede Ameti ühendamisega (ning nende õigusjärgsena). Transpordiametist saab transpordiliikide ülene kompetentsikeskus ning ohutu, mugava ja kiire liiklemiskeskkonna arendaja. Amet lähtub oma tegevuses liikuvuse terviklikust kujundamisest, mille eesmärk on pakkuda inimestele ja kaupadele võimalikult mugavaid ja kiireid liikumislahendusi, kasutades ka erinevaid transpordiliike.",
             "isPublicBody": true,
-            "notifications": []
+            "notifications": [
+                "DATASET_COMMENTED",
+                "DATASET_RATED",
+                "DATASET_ACCESS_REQUEST",
+                "DATA_WISH_NEW",
+                "DATASET_PRIVACY_VIOLATION"
+            ]
         },
         "coordinateReferenceSystems": [
             {

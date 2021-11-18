@@ -5,7 +5,21 @@ from pathlib import Path
 from typing import List
 
 from avaandmed import Avaandmed
-from avaandmed.api_resources.common import Category, Citation, Conformity, CoordinateReferenceSystem, File, Keyword, Licence, Region
+from avaandmed.api_resources.common import (
+    Access,
+    Category,
+    Citation,
+    Conformity,
+    CoordinateReferenceSystem,
+    File,
+    Keyword,
+    Licence,
+    Notification,
+    Region,
+    ResourceType,
+    TopicCategory,
+    UpdateIntervalUnit
+)
 from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.organizations.organization import Organization
@@ -290,3 +304,52 @@ def test_license_is_deserialized(datasets: Datasets):
     dataset = datasets.retrieve_by_id(DATASET_ID)
     licence = dataset.licence
     assert isinstance(licence, Licence)
+
+
+@responses.activate
+def test_interval_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    interval = dataset.update_interval_unit
+    assert isinstance(interval, UpdateIntervalUnit)
+
+
+@responses.activate
+def test_access_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    access = dataset.access
+    assert isinstance(access, Access)
+
+
+@responses.activate
+def test_res_type_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    res_type = dataset.resource_type
+    assert isinstance(res_type, ResourceType)
+
+
+@responses.activate
+def test_topics_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    topics = dataset.topic_categories
+
+    for topic in topics:
+        assert isinstance(topic, TopicCategory)
+
+
+@responses.activate
+def test_notifications_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    notifs = dataset.organization.notifications
+
+    for n in notifs:
+        assert isinstance(n, Notification)
