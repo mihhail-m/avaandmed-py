@@ -11,7 +11,7 @@ class Datasets:
     Collection class responsible for actions with Datasets.
     """
     _http_client: HttpClient
-    _DATASET_ENDPOINT = '/datasets'
+    _ENDPOINT = '/datasets'
 
     def __init__(self, http_client: HttpClient) -> None:
         self._http_client = http_client
@@ -20,7 +20,7 @@ class Datasets:
         """
         Returns Dataset instance with specified id.
         """
-        url = f"{self._DATASET_ENDPOINT}/{id}"
+        url = f"{self._ENDPOINT}/{id}"
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
@@ -28,7 +28,7 @@ class Datasets:
         """
         Returns Dataset instance with specified slug.
         """
-        url = f"{self._DATASET_ENDPOINT}/slug/{slug}"
+        url = f"{self._ENDPOINT}/slug/{slug}"
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
@@ -40,7 +40,7 @@ class Datasets:
         if limit <= 0:
             raise AvaandmedException('Limit cannot 0 or less.')
 
-        url = f"{self._DATASET_ENDPOINT}?limit={limit}"
+        url = f"{self._ENDPOINT}?limit={limit}"
         datasets_json = self._http_client.request(HttpMethod.GET, url=url)
         dataset_list = parse_obj_as(List[Dataset], datasets_json)
         return dataset_list
@@ -49,7 +49,7 @@ class Datasets:
         """
         Returns total amount of datasets present at the moment.
         """
-        url = f"{self._DATASET_ENDPOINT}/total"
+        url = f"{self._ENDPOINT}/total"
         total = self._http_client.request(HttpMethod.GET, url=url)
         return total
 
@@ -57,6 +57,6 @@ class Datasets:
         """
         Returns distinct mimetypes used by API.
         """
-        url = f"{self._DATASET_ENDPOINT}/mimetypes/distinct"
+        url = f"{self._ENDPOINT}/mimetypes/distinct"
         mimetypes = self._http_client.request(HttpMethod.GET, url=url)
         return mimetypes

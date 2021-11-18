@@ -1,3 +1,4 @@
+from pydantic.errors import NotNoneError
 import pytest
 import responses
 from pathlib import Path
@@ -6,6 +7,7 @@ from typing import List
 from avaandmed import Avaandmed
 from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
+from avaandmed.api_resources.organizations.organization import Organization
 from avaandmed.api_resources.users.user import User
 from avaandmed.exceptions import AvaandmedApiExcepiton, AvaandmedException
 from .utils import load_json
@@ -63,9 +65,11 @@ def test_retrieve_by_id(datasets: Datasets):
     )
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
-    # print(dataset)
+    print(dataset)
+
     assert isinstance(dataset, Dataset)
     assert DATASET_ID == dataset.id
+    assert dataset.user is not None
 
 
 @responses.activate
@@ -188,3 +192,20 @@ def test_user_is_deserialized(datasets: Datasets):
     for v in user_dict.values():
         assert v is not None
     assert isinstance(dataset.user, User)
+
+
+@responses.activate
+def test_organization_is_deserialized(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        join_base_url_values([DATASET_ID]),
+        json=load_json(MOCK_DATASET_FILE),
+        status=200
+    )
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    organization_dict = dataset.organization.dict()  # type: ignore
+    assert isinstance(dataset.organization, Organization)
+    for v in organization_dict.values():
+        assert v is not None

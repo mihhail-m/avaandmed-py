@@ -1,8 +1,13 @@
-from avaandmed.api_resources import ApiResource
+from avaandmed import http
+from avaandmed.http.http_client import HttpClient
 
 
-class Organizations(ApiResource):
+class Organizations:
     """
-    Class for representing Organizations entity.
+    Controller class to handled Organizations endpoints. 
     """
-    pass
+    _http_client: HttpClient
+    _ENDPOINT = '/organizations/my-organizations'
+
+    def __init__(self, http_client: HttpClient) -> None:
+        self._http_client = http_client
