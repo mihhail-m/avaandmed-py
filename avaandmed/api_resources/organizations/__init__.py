@@ -1,4 +1,3 @@
-from avaandmed import http
 from avaandmed.http.http_client import HttpClient
 
 

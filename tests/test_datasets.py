@@ -1,10 +1,25 @@
-from pydantic.errors import NotNoneError
+# type: ignore
 import pytest
 import responses
 from pathlib import Path
 from typing import List
 
 from avaandmed import Avaandmed
+from avaandmed.api_resources.common import (
+    Access,
+    Category,
+    Citation,
+    Conformity,
+    CoordinateReferenceSystem,
+    File,
+    Keyword,
+    Licence,
+    Notification,
+    Region,
+    ResourceType,
+    TopicCategory,
+    UpdateIntervalUnit
+)
 from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.organizations.organization import Organization
@@ -47,6 +62,16 @@ def mock_post_auth():
     )
 
 
+def stub_get_dataset_by(url_value, filename: Path):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        join_base_url_values([DATASET_ID]),
+        json=load_json(MOCK_DATASET_FILE),
+        status=200
+    )
+
+
 def test_json_to_model():
     dataset = Dataset.parse_obj(load_json(MOCK_DATASET_FILE)['data'])
     assert dataset.name == 'Sõidukite staatused Eestis'
@@ -65,8 +90,6 @@ def test_retrieve_by_id(datasets: Datasets):
     )
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
-    print(dataset)
-
     assert isinstance(dataset, Dataset)
     assert DATASET_ID == dataset.id
     assert dataset.user is not None
@@ -205,7 +228,128 @@ def test_organization_is_deserialized(datasets: Datasets):
     )
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
-    organization_dict = dataset.organization.dict()  # type: ignore
+    organization_dict = dataset.organization.dict()
     assert isinstance(dataset.organization, Organization)
     for v in organization_dict.values():
         assert v is not None
+
+
+@responses.activate
+def test_files_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    files = dataset.files
+    assert isinstance(files[0], File)
+
+
+@responses.activate
+def test_keywords_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    keywords = dataset.keywords
+    assert isinstance(keywords[0], Keyword)
+
+
+@responses.activate
+def test_categories_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    categories = dataset.categories
+    assert isinstance(categories[0], Category)
+
+
+@responses.activate
+def test_regions_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    regions = dataset.regions
+    assert isinstance(regions[0], Region)
+
+
+@responses.activate
+def test_coords_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    coords = dataset.coordinate_reference_systems
+    assert isinstance(coords[0], CoordinateReferenceSystem)
+
+
+@responses.activate
+def test_citations_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    citations = dataset.citations
+    assert isinstance(citations[0], Citation)
+
+
+@responses.activate
+def test_conformities_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    conformities = dataset.conformities
+    assert isinstance(conformities[0], Conformity)
+
+
+@responses.activate
+def test_license_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    licence = dataset.licence
+    assert isinstance(licence, Licence)
+
+
+@responses.activate
+def test_interval_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    interval = dataset.update_interval_unit
+    assert isinstance(interval, UpdateIntervalUnit)
+
+
+@responses.activate
+def test_access_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    access = dataset.access
+    assert isinstance(access, Access)
+
+
+@responses.activate
+def test_res_type_is_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    res_type = dataset.resource_type
+    assert isinstance(res_type, ResourceType)
+
+
+@responses.activate
+def test_topics_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    topics = dataset.topic_categories
+
+    for topic in topics:
+        assert isinstance(topic, TopicCategory)
+
+
+@responses.activate
+def test_notifications_are_deserialized(datasets: Datasets):
+    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    notifs = dataset.organization.notifications
+
+    for n in notifs:
+        assert isinstance(n, Notification)

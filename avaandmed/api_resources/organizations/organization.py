@@ -1,5 +1,6 @@
-from typing import Any, Optional, List
+from typing import Optional, List
 from avaandmed.api_resources import ApiResource
+from avaandmed.api_resources.common import Notification
 
 
 class Organization(ApiResource):
@@ -14,4 +15,4 @@ class Organization(ApiResource):
     contact_email: Optional[str]
     description: Optional[str]
     is_public_body: Optional[bool]
-    notifications: Optional[List[Any]]
+    notifications: Optional[List[Notification]]

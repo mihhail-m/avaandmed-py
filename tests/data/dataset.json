@@ -10,8 +10,30 @@
         "maintainer": "Hardi Roosi",
         "maintainerEmail": "hardi.roosi@transpordiamet.ee",
         "maintainerPhone": "+37258031477",
-        "citations": null,
-        "conformities": [],
+        "citations": [
+            {
+                "url": "https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/stat_rahvastikutihedus",
+                "name": "Eesti rahvastikutiheduse 1 km x 1 km ruutkaart"
+            },
+            {
+                "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wms?service=WMS&version=1.3.0&request=GetCapabilities",
+                "name": "WMS teenuse getCapabilities"
+            },
+            {
+                "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs?service=WFS&version=2.0.0&request=GetCapabilities",
+                "name": "WFS teenuse getCapabilities"
+            }
+        ],
+        "conformities": [
+            {
+                "releaseDate": "2008-12-04T00:00:00",
+                "specification": "Komisjoni määrus (EÜ) nr 1205/2008, 3. detsember 2008, millega rakendatakse Euroopa Parlamendi ja nõukogu direktiivi 2007/2/EÜ seoses metaandmetega"
+            },
+            {
+                "releaseDate": "2010-12-08T00:00:00",
+                "specification": "Komisjoni määrus (EL) nr 1089/2010, 23. november 2010, millega rakendatakse Euroopa Parlamendi ja nõukogu direktiivi 2007/2/EÜ seoses ruumiandmekogumite ja -teenuste ristkasutatavusega"
+            }
+        ],
         "southLatitude": null,
         "northLatitude": null,
         "westLongitude": null,
@@ -20,7 +42,7 @@
         "language": null,
         "dataFrom": "2010-12-31T22:00:00.000Z",
         "dataTo": null,
-        "updateIntervalUnit": "month",
+        "updateIntervalUnit": "notPlanned",
         "updateIntervalFrequency": 1,
         "access": "public",
         "availableTo": null,
@@ -34,8 +56,28 @@
         "geoportalKeywords": null,
         "lineage": null,
         "pixelSize": null,
-        "resourceType": null,
-        "topicCategories": [],
+        "resourceType": "dataset",
+        "topicCategories": [
+            "biota",
+            "boundaries",
+            "climatologyMeteorologyAtmosphere",
+            "economy",
+            "elevation",
+            "environment",
+            "farming",
+            "geoscientificInformation",
+            "health",
+            "imageryBaseMapsEarthCover",
+            "inlandWaters",
+            "intelligenceMilitary",
+            "location",
+            "oceans",
+            "planningCadastre",
+            "society",
+            "structure",
+            "transportation",
+            "utilitiesCommunication"
+        ],
         "spatialRepresentationType": null,
         "spatialDataServiceType": null,
         "temporalResolution": null,
@@ -68,9 +110,24 @@
             "contactEmail": "info@transpordiamet.ee",
             "description": "Transpordiamet loodi 1. jaanuaril 2021 seniste Lennu-, Maantee- ja Veeteede Ameti ühendamisega (ning nende õigusjärgsena). Transpordiametist saab transpordiliikide ülene kompetentsikeskus ning ohutu, mugava ja kiire liiklemiskeskkonna arendaja. Amet lähtub oma tegevuses liikuvuse terviklikust kujundamisest, mille eesmärk on pakkuda inimestele ja kaupadele võimalikult mugavaid ja kiireid liikumislahendusi, kasutades ka erinevaid transpordiliike.",
             "isPublicBody": true,
-            "notifications": []
+            "notifications": [
+                "DATASET_COMMENTED",
+                "DATASET_RATED",
+                "DATASET_ACCESS_REQUEST",
+                "DATA_WISH_NEW",
+                "DATASET_PRIVACY_VIOLATION"
+            ]
         },
-        "coordinateReferenceSystems": [],
+        "coordinateReferenceSystems": [
+            {
+                "id": 3578,
+                "uri": "http://www.opengis.net/def/crs/EPSG/0/4258"
+            },
+            {
+                "id": 2758,
+                "uri": "http://www.opengis.net/def/crs/EPSG/0/3301"
+            }
+        ],
         "keywords": [
             {
                 "id": 22306,
@@ -107,6 +164,26 @@
                 "metadata": {},
                 "processingStatus": "none",
                 "storageFilename": "80ea5d12-6204-4f04-bbdd-3ee1a509f9c7-Sõidukite-staatused-avaandmetena2-(1).csv"
+            },
+            {
+                "id": "b88c9edc-cf81-47a5-aaf0-40d2af2c73a1",
+                "name": "sample (7).csv",
+                "mimetype": "text/csv",
+                "size": "946",
+                "datasetId": "69cd29c8-4b3c-4bcd-8d82-bdf8a2909add",
+                "metadata": {},
+                "processingStatus": "completed",
+                "storageFilename": "b88c9edc-cf81-47a5-aaf0-40d2af2c73a1-sample-(7).csv"
+            },
+            {
+                "id": "d824dbed-7623-4908-b8d1-53b714a9515e",
+                "name": "sample (7).csv",
+                "mimetype": "text/csv",
+                "size": "946",
+                "datasetId": "69cd29c8-4b3c-4bcd-8d82-bdf8a2909add",
+                "metadata": {},
+                "processingStatus": "completed",
+                "storageFilename": "d824dbed-7623-4908-b8d1-53b714a9515e-sample-(7).csv"
             }
         ],
         "parentDatasets": [

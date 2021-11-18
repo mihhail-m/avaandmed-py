@@ -14,4 +14,3 @@ class ApiResource(BaseModel):
 
     class Config:
         alias_generator = to_camel_case
-        use_enum_values = True
