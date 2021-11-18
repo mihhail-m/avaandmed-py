@@ -1,5 +1,19 @@
-from typing import List, Optional, Any
+from typing import List, Optional
 from avaandmed.api_resources import ApiResource
+from avaandmed.api_resources.common import (
+    Access,
+    Category,
+    Citation,
+    Conformity,
+    CoordinateReferenceSystem,
+    File,
+    Keyword,
+    Licence,
+    Region,
+    ResourceType,
+    TopicCategory,
+    UpdateIntervalUnit
+)
 from avaandmed.api_resources.organizations.organization import Organization
 from avaandmed.api_resources.users.user import User
 
@@ -17,11 +31,11 @@ class Dataset(ApiResource):
     organization_id: Optional[str]
     user: Optional[User]
     user_id: Optional[str]
-    files: Optional[List[Any]]  # TODO
-    keywords: Optional[List[Any]]  # TODO
-    categories: Optional[List[Any]]  # TODO
-    regions: Optional[List[Any]]  # TODO
-    coordinate_reference_systems: Optional[List[Any]]  # TODO
+    files: Optional[List[File]]
+    keywords: Optional[List[Keyword]]
+    categories: Optional[List[Category]]
+    regions: Optional[List[Region]]
+    coordinate_reference_systems: Optional[List[CoordinateReferenceSystem]]
     is_actual: Optional[bool]
     created_at: Optional[str]
     updated_at: Optional[str]
@@ -32,19 +46,19 @@ class Dataset(ApiResource):
     maintainer: Optional[str]
     maintainer_email: Optional[str]
     maintainer_phone: Optional[str]
-    citations: Optional[List[Any]]  # TODO
-    conformities: Optional[List[Any]]  # TODO
+    citations: Optional[List[Citation]]
+    conformities: Optional[List[Conformity]]
     south_latitude: Optional[str]
     north_latitude: Optional[str]
     west_longitude: Optional[str]
     east_longitude: Optional[str]
     language: Optional[str]
-    licence: Optional[Any]  # TODO Fix type
+    licence: Optional[Licence]
     data_from: Optional[str]
     data_to: Optional[str]
-    update_interval_unit: Optional[str]  # TODO
+    update_interval_unit: Optional[UpdateIntervalUnit]
     update_interval_frequency: Optional[int]
-    access: Optional[str]  # TODO
+    access: Optional[Access]
     available_to: Optional[str]
     landing_page: Optional[str]
     qualified_attribution: Optional[str]
@@ -56,8 +70,8 @@ class Dataset(ApiResource):
     geoportal_keywords: Optional[str]
     lineage: Optional[str]
     pixel_size: Optional[str]
-    resource_type: Optional[str]  # TODO
-    topic_categories: Optional[List[str]]  # TODO
+    resource_type: Optional[ResourceType]
+    topic_categories: Optional[List[TopicCategory]]
     maturity: Optional[str]
     temporal_resolution: Optional[str]
     version_notes: Optional[str]
