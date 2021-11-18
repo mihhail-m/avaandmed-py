@@ -2,16 +2,6 @@ from typing import Any, Dict, List, Optional
 from enum import Enum
 from avaandmed.api_resources import ApiResource
 
-# "id": 3068,
-# "name": "rahvastik",
-# "language": "et",
-# "keywordId": 3068,
-# "keywordEmsCategory": {
-#     "id": 4614,
-#     "emsCategoryId": 14,
-#     "keywordId": 3068
-# }
-
 
 class KeywordEmsCategory(ApiResource):
     id: int
@@ -102,3 +92,80 @@ class File(ApiResource):
     metadata: Dict[str, Any]
     processing_status: ProcessingStatus
     storage_filename: str
+
+
+class UpdateIntervalUnit(str, Enum):
+    """
+    Handles updateIntervalUnit field deserialization in Dataset model.
+    Serializaes into Enum i.e UpdateIntervalUnit.MINUTE.
+    """
+    CONTINUAL = 'continual'
+    MINUTE = 'minute'
+    WORKDAY = 'workday'
+    DAY = 'day'
+    WEEK = 'week'
+    MONTH = 'month'
+    QUARTER = 'quarter'
+    YEAR = 'year'
+    AS_NEEDED = 'asNeeded'
+    IRREGULAR = 'irregular'
+    NOT_PLANNED = 'notPlanned'
+    UNKNOWN = 'unknown'
+    NEVER = 'never'
+
+
+class Access(str, Enum):
+    """
+    Handles access field serialization in Dataset model.
+    Serializes into Enum i.e Access.PUBLIC
+    """
+    PUBLIC = 'public'
+    PROTECTED = 'protected'
+    PRIVATE = 'private'
+
+
+class ResourceType(str, Enum):
+    """
+    Handles resourceType field serialization in Dataset model.
+    Serializes into Enum i.e ResourceType.DATASET
+    """
+    DATASET = 'dataset'
+    SERIES = 'series'
+    SERVICE = 'service'
+
+
+class TopicCategory(str, Enum):
+    """
+    Handles topicCategores field serialization in Dataset model.
+    Seriliazles into Enum i.e TopicCategoty.BIOTA
+    """
+    BIOTA = 'biota'
+    BOUNDARIES = 'boundaries'
+    CLIMATOLOGY_METEROROLOGY_ATMOSPHERE = 'climatologyMeteorologyAtmosphere'
+    ECONOMY = 'economy'
+    ELEVATION = 'elevation'
+    ENVIRONMENT = 'environment'
+    FARMING = 'farming'
+    GEO_SCIENTIFIC_INFORMATION = 'geoscientificInformation'
+    HEALTH = 'health'
+    IMAGERY_BASE_MAPS_EARTH_COVER = 'imageryBaseMapsEarthCover'
+    INLAND_WATERS = 'inlandWaters'
+    INTELLIGENCE_MILITARY = 'intelligenceMilitary'
+    LOCATION = 'location'
+    OCEANS = 'oceans'
+    PLANNING_CADASTRE = 'planningCadastre'
+    SOCIETY = 'society'
+    STRUCTURE = 'structure'
+    TRANSPORTATION = 'transportation'
+    UTILITIES_COMMUNICATIOn = 'utilitiesCommunication'
+
+
+class Notification(str, Enum):
+    """
+    Handles notificaitons field serialization in Organization model.
+    """
+    DATASET_COMMENTED = 'DATASET_COMMENTED'
+    DATASET_RATED = 'DATASET_RATED'
+    DATASET_ACCESS_REQUEST = 'DATASET_ACCESS_REQUEST'
+    DATA_WISH_NEW = 'DATA_WISH_NEW'
+    DATASET_PRIVACY_VIOLATION = 'DATASET_PRIVACY_VIOLATION'
