@@ -6,6 +6,7 @@ from typing import List
 from avaandmed import Avaandmed
 from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
+from avaandmed.api_resources.users.user import User
 from avaandmed.exceptions import AvaandmedApiExcepiton, AvaandmedException
 from .utils import load_json
 
@@ -62,6 +63,7 @@ def test_retrieve_by_id(datasets: Datasets):
     )
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
+    # print(dataset)
     assert isinstance(dataset, Dataset)
     assert DATASET_ID == dataset.id
 
@@ -169,3 +171,20 @@ def test_get_mimetypes(datasets: Datasets):
 
     mimetypes = datasets.get_distinct_mimetypes()
     assert mimetypes is not None
+
+
+@responses.activate
+def test_user_is_deserialized(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        join_base_url_values([DATASET_ID]),
+        json=load_json(MOCK_DATASET_FILE),
+        status=200
+    )
+
+    dataset = datasets.retrieve_by_id(DATASET_ID)
+    user_dict = dataset.user.dict()  # type: ignore
+    for v in user_dict.values():
+        assert v is not None
+    assert isinstance(dataset.user, User)

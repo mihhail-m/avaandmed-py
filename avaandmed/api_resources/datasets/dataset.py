@@ -1,5 +1,6 @@
 from typing import List, Optional, Any
 from avaandmed.api_resources import ApiResource
+from avaandmed.api_resources.users.user import User
 
 
 class Dataset(ApiResource):
@@ -13,7 +14,7 @@ class Dataset(ApiResource):
     url: Optional[str]
     organization: Optional[Any]  # TODO
     organization_id: Optional[str]
-    user: Optional[Any]  # TODO
+    user: Optional[User]
     user_id: Optional[str]
     files: Optional[List[Any]]  # TODO
     keywords: Optional[List[Any]]  # TODO
