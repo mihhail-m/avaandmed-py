@@ -62,12 +62,24 @@ def mock_post_auth():
     )
 
 
-def stub_get_dataset_by(url_value, filename: Path):
+def mock_negative_post_auth(status: int, msg: str):
+    responses.add(
+        responses.POST,
+        MOCK_TOKEN_URL,
+        json={
+            "statusCode": status,
+            "message": msg,
+        },
+        status=status
+    )
+
+
+def stub_get_dataset_by(url_values: List[str], filename: Path):
     mock_post_auth()
     responses.add(
         responses.GET,
-        join_base_url_values([DATASET_ID]),
-        json=load_json(MOCK_DATASET_FILE),
+        join_base_url_values(url_values),
+        json=load_json(filename),
         status=200
     )
 
@@ -78,7 +90,14 @@ def test_json_to_model():
     assert isinstance(dataset, Dataset)
 
 
-# @pytest.mark.skip(reason='dynamic dataset ID')
+@responses.activate
+def test_negative_post_auth(datasets: Datasets):
+    with pytest.raises(AvaandmedApiExcepiton):
+        mock_negative_post_auth(401, "Unauthorized")
+        stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+        dataset = datasets.retrieve_by_id(DATASET_ID)
+
+
 @responses.activate
 def test_retrieve_by_id(datasets: Datasets):
     mock_post_auth()
