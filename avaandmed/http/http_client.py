@@ -1,6 +1,8 @@
+from pathlib import Path
 from requests import Session, exceptions
 from base64 import b64encode
 from enum import Enum
+
 from avaandmed.exceptions import AvaandmedApiExcepiton
 
 
@@ -49,21 +51,22 @@ class HttpClient:
         session.headers.update({'X-API-KEY': x_api_key})
         auth_url = f"{self.__BASE_URL}/auth/key-login"
 
-        try:
-            res = session.post(url=auth_url)
-            res.raise_for_status()
+        with session as s:
+            try:
+                res = s.post(url=auth_url)
+                res.raise_for_status()
 
-        except exceptions.HTTPError:
-            raise AvaandmedApiExcepiton(
-                status=res.status_code,
-                uri=res.url,
-                msg=res.json()['message']
-            )
+            except exceptions.HTTPError:
+                raise AvaandmedApiExcepiton(
+                    status=res.status_code,
+                    uri=res.url,
+                    msg=res.json()['message']
+                )
 
-        except exceptions.RequestException as ex:
-            raise SystemExit(ex)
+            except exceptions.RequestException as ex:
+                raise SystemExit(ex)
 
-        return res.json()['data']['accessToken']
+            return res.json()['data']['accessToken']
 
     def request(self, method: HttpMethod, url: str, data={}):
         """
@@ -79,7 +82,8 @@ class HttpClient:
                 res = s.request(
                     method=method.name,
                     url=url,
-                    json=data
+                    json=data,
+                    stream=True
                 )
                 res.raise_for_status()
 
@@ -94,3 +98,32 @@ class HttpClient:
                 raise SystemExit(ex)
 
             return res.json()['data']
+
+    # TODO
+    def download(self, url: str, destination: str = None):
+        session = self.__session
+        download_url = f"{self.__BASE_URL}{url}"
+
+        if destination is None:
+            destination = str(Path.home() / 'Downloads')
+
+        access_token = self.__get_token()
+        session.headers.update({'Authorization': f"Bearer {access_token}"})
+
+        with session.get(download_url, stream=True) as s:
+            try:
+                s.raise_for_status()
+
+                with open(destination, 'wb') as outfile:
+                    for chunk in s.iter_content(chunk_size=1024):
+                        print(chunk)
+                        outfile.write(chunk)
+
+                    return 0
+
+            except exceptions.HTTPError:
+                raise AvaandmedApiExcepiton(
+                    status=s.status_code,
+                    uri=download_url,
+                    msg=s.json()['message'],
+                )

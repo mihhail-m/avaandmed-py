@@ -169,3 +169,17 @@ class Notification(str, Enum):
     DATASET_ACCESS_REQUEST = 'DATASET_ACCESS_REQUEST'
     DATA_WISH_NEW = 'DATA_WISH_NEW'
     DATASET_PRIVACY_VIOLATION = 'DATASET_PRIVACY_VIOLATION'
+
+
+class FileColumn(ApiResource):
+    """
+    Handles field serialization from /columns endpoint.
+    """
+    column: Optional[str]
+    type: Optional[str]
+    description: Optional[str]
+    api_field_name: Optional[str]
+    unit: Optional[str]
+    required: Optional[bool]
+    private: Optional[bool]
+    unique: Optional[bool]

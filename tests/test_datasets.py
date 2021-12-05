@@ -12,6 +12,7 @@ from avaandmed.api_resources.common import (
     Conformity,
     CoordinateReferenceSystem,
     File,
+    FileColumn,
     Keyword,
     Licence,
     Notification,
@@ -29,15 +30,22 @@ from .utils import load_json
 
 DATA_DIR = Path('data')
 DATASET_ID = '8d681e55-4118-41f5-b319-1d2bdd36408c'
+DATASET_ID_2 = '4446e091-adfc-4e1a-9e13-733d2b95f6e4'
 DATASET_SLUG = 'soidukite-staatused-eestis'
+FILE_ID = 'b88c9edc-cf81-47a5-aaf0-40d2af2c73a1'
 WRONG_SLUG = 'sdfsdf'
 WRONG_ID = 'sdfsdfsd'
 BASE_URL = 'https://avaandmedtest.eesti.ee/api/datasets'
 MOCK_TOKEN_URL = 'https://avaandmedtest.eesti.ee/api/auth/key-login'
+
+# Mock data/files
 MOCK_DATASET_FILE = DATA_DIR / 'dataset.json'
+MOCK_DATSET_FILE_2 = DATA_DIR / 'dataset2.json'
 MOCK_ERROR_FILE = DATA_DIR / 'error.json'
 MOCK_TOKEN_FILE = DATA_DIR / 'token.json'
 MOCK_DATASET_LIST_FILE = DATA_DIR / 'dataset_list.json'
+MOCK_PREVIEW_FILE = DATA_DIR / 'preview.json'
+MOCK_COLUMNS_FILE = DATA_DIR / 'file_columns.json'
 
 
 def join_base_url_values(path_values: List[str]):
@@ -74,7 +82,7 @@ def mock_negative_post_auth(status: int, msg: str):
     )
 
 
-def stub_get_dataset_by(url_values: List[str], filename: Path):
+def stub_get(url_values: List[str], filename: Path):
     mock_post_auth()
     responses.add(
         responses.GET,
@@ -94,7 +102,7 @@ def test_json_to_model():
 def test_negative_post_auth(datasets: Datasets):
     with pytest.raises(AvaandmedApiExcepiton):
         mock_negative_post_auth(401, "Unauthorized")
-        stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+        stub_get([DATASET_ID], MOCK_DATASET_FILE)
         dataset = datasets.retrieve_by_id(DATASET_ID)
 
 
@@ -255,7 +263,7 @@ def test_organization_is_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_files_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     files = dataset.files
@@ -264,7 +272,7 @@ def test_files_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_keywords_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     keywords = dataset.keywords
@@ -273,7 +281,7 @@ def test_keywords_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_categories_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     categories = dataset.categories
@@ -282,7 +290,7 @@ def test_categories_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_regions_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     regions = dataset.regions
@@ -291,7 +299,7 @@ def test_regions_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_coords_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     coords = dataset.coordinate_reference_systems
@@ -300,7 +308,7 @@ def test_coords_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_citations_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     citations = dataset.citations
@@ -309,7 +317,7 @@ def test_citations_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_conformities_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     conformities = dataset.conformities
@@ -318,7 +326,7 @@ def test_conformities_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_license_is_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     licence = dataset.licence
@@ -327,7 +335,7 @@ def test_license_is_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_interval_is_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     interval = dataset.update_interval_unit
@@ -336,7 +344,7 @@ def test_interval_is_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_access_is_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     access = dataset.access
@@ -345,7 +353,7 @@ def test_access_is_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_res_type_is_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     res_type = dataset.resource_type
@@ -354,7 +362,7 @@ def test_res_type_is_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_topics_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     topics = dataset.topic_categories
@@ -365,10 +373,62 @@ def test_topics_are_deserialized(datasets: Datasets):
 
 @responses.activate
 def test_notifications_are_deserialized(datasets: Datasets):
-    stub_get_dataset_by([DATASET_ID], MOCK_DATASET_FILE)
+    stub_get([DATASET_ID], MOCK_DATASET_FILE)
 
     dataset = datasets.retrieve_by_id(DATASET_ID)
     notifs = dataset.organization.notifications
 
     for n in notifs:
         assert isinstance(n, Notification)
+
+
+@responses.activate
+def test_get_file_preview(datasets: Datasets):
+    mock_post_auth()
+    stub_get([DATASET_ID, 'files', FILE_ID, 'preview'], MOCK_PREVIEW_FILE)
+    preview = datasets.get_file_rows_preview(DATASET_ID, FILE_ID)
+
+    assert preview is not None
+
+
+@responses.activate
+def test_get_dataset2(datasets: Datasets):
+    mock_post_auth()
+    stub_get([DATASET_ID_2], MOCK_DATSET_FILE_2)
+    dataset = datasets.retrieve_by_id(DATASET_ID_2)
+
+    assert dataset.parent_datasets is not None
+
+
+@responses.activate
+def test_file_columns(datasets: Datasets):
+    mock_post_auth()
+    stub_get([DATASET_ID, 'files', FILE_ID, 'columns'], MOCK_COLUMNS_FILE)
+    file_columns = datasets.get_file_columns(DATASET_ID, FILE_ID)
+
+    assert isinstance(file_columns[0], FileColumn)
+
+
+@responses.activate
+def test_get_dataset_rating_by_slug(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.GET,
+        join_base_url_values(['rating', DATASET_SLUG]),
+        json={
+            "data": 0
+        },
+        status=200
+    )
+
+    rating = datasets.get_dataset_rating_by_slug(DATASET_SLUG)
+
+    assert isinstance(rating, int)
+    assert rating == 0
+
+
+# def test_download_file(datasets: Datasets):
+#     datasets.download_file(
+#         '04cd57e3-34ee-4e11-bd4d-a9016a8a7694',
+#         '731cff3b-7d33-40db-a000-d9717d8e0118'
+#     )

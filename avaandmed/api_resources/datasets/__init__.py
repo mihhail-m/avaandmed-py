@@ -1,9 +1,12 @@
-from typing import List
+from typing import Any, List, Dict
+from avaandmed.api_resources.common import FileColumn
 
 from avaandmed.exceptions import AvaandmedException
 from avaandmed.http.http_client import HttpClient, HttpMethod
 from .dataset import Dataset
 from pydantic import parse_obj_as
+
+Preview = List[Dict[str, Any]]
 
 
 class Datasets:
@@ -60,3 +63,63 @@ class Datasets:
         url = f"{self._ENDPOINT}/mimetypes/distinct"
         mimetypes = self._http_client.request(HttpMethod.GET, url=url)
         return mimetypes
+
+    def get_file_rows_preview(self, id: str, fileId: str) -> Preview:
+        """
+        Preview the file rows in the way, how end user will see them.
+        Returns object according to the provided data in the dataset's file.
+        """
+        url = f"{self._ENDPOINT}/{id}/files/{fileId}/preview"
+        preview = self._http_client.request(HttpMethod.GET, url=url)
+        return preview
+
+    def paginate_file_by_id(self, id: str, fileId: str) -> Preview:
+        """
+        Paginate through successfully processed file content.
+        """
+        url = f"{self._ENDPOINT}/{id}/files/{fileId}"
+        file = self._http_client.request(HttpMethod.GET, url=url)
+        return file
+
+    def get_file_columns(self, id: str, fileId: str) -> List[FileColumn]:
+        """
+        Returns columns from the dataset file.
+        """
+        url = f"{self._ENDPOINT}/{id}/files/{fileId}/columns"
+        columns = self._http_client.request(HttpMethod.GET, url=url)
+        return parse_obj_as(List[FileColumn], columns)
+
+    # TODO
+    def download_file(self, id: str, fileId: str, dst: str = None) -> None:
+        """
+        Downloads processed file of a dataset.
+        By default file will be downloaded into current user's Downloads directory.
+        Otherwise provide full path to the file. Ex: path/to/file.txt
+        """
+        url = f"{self._ENDPOINT}/{id}/files/{fileId}/download"
+        self._http_client.download(url, dst)
+
+    def file_privacy_violations(self, body):
+        """
+        Submits privacy violations form for the dataset.
+        """
+        pass
+
+    def apply_for_access(self):
+        """
+        Submits request to get additional permissions for dataset.
+        """
+        pass
+
+    def rate_dataset(self, id: str, quality_rating: int, meta_data_rating: int, description: str):
+        """
+        Submits rating for the dataset.
+        """
+        pass
+
+    def get_dataset_rating_by_slug(self, slug: str) -> int:
+        """
+        Retrieves rating of the dataset by given slug.
+        """
+        url = f"{self._ENDPOINT}/rating/{slug}"
+        return self._http_client.request(HttpMethod.GET, url=url)
