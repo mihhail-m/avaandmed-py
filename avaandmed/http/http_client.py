@@ -82,8 +82,7 @@ class HttpClient:
                 res = s.request(
                     method=method.name,
                     url=url,
-                    json=data,
-                    stream=True
+                    json=data
                 )
                 res.raise_for_status()
 
@@ -96,6 +95,11 @@ class HttpClient:
 
             except exceptions.RequestException as ex:
                 raise SystemExit(ex)
+
+            if method == HttpMethod.POST:
+                if res.content != b'':
+                    return res.json()
+                return ''
 
             return res.json()['data']
 
