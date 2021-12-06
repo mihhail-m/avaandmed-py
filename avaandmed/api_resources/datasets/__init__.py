@@ -19,7 +19,7 @@ class Datasets:
     def __init__(self, http_client: HttpClient) -> None:
         self._http_client = http_client
 
-    def retrieve_by_id(self, id: str) -> Dataset:
+    def get_by_id(self, id: str) -> Dataset:
         """
         Returns Dataset instance with specified id.
         """
@@ -27,7 +27,7 @@ class Datasets:
         dataset_json = self._http_client.request(HttpMethod.GET, url=url)
         return Dataset.parse_obj(dataset_json)
 
-    def retrieve_by_slug(self, slug: str) -> Dataset:
+    def get_by_slug(self, slug: str) -> Dataset:
         """
         Returns Dataset instance with specified slug.
         """
@@ -99,25 +99,59 @@ class Datasets:
         url = f"{self._ENDPOINT}/{id}/files/{fileId}/download"
         self._http_client.download(url, dst)
 
-    def file_privacy_violations(self, body):
+    def file_privacy_violations(self, id: str, description: str) -> str:
         """
         Submits privacy violations form for the dataset.
+        Returns 'Submitted' status if succesful.
         """
-        pass
+        if len(description) < 20 or len(description) > 1000:
+            raise AvaandmedException(
+                'Description must be at least 20 characters long, but no longer than 1000.'
+            )
+        url = f"{self._ENDPOINT}/privacy-violations"
+        data = {
+            "datasetId": id,
+            "description": description
+        }
+        self._http_client.request(HttpMethod.POST, url, data)
+        return 'Submitted'
 
-    def apply_for_access(self):
+    def apply_for_access(self, id: str, description: str):
         """
         Submits request to get additional permissions for dataset.
+        Returns 'Submitted' status if succesful.
         """
-        pass
+        if len(description) < 20 or len(description) > 1000:
+            raise AvaandmedException(
+                'Description must be at least 20 characters long, but no longer than 1000.'
+            )
+        url = f"{self._ENDPOINT}/access-permissions"
+        data = {
+            "datasetId": id,
+            "description": description
+        }
+        self._http_client.request(HttpMethod.POST, url, data)
+        return 'Submitted'
 
-    def rate_dataset(self, id: str, quality_rating: int, meta_data_rating: int, description: str):
+    def rate_dataset(self, id: str, quality_rating: int, meta_data_rating: int) -> str:
         """
         Submits rating for the dataset.
+        Returns 'Submitted' status if succesful.
         """
-        pass
+        if ((quality_rating < 0 or quality_rating > 10) or
+                (meta_data_rating < 0 or meta_data_rating > 10)):
+            raise AvaandmedException('Rating must be from 0 to 10.')
 
-    def get_dataset_rating_by_slug(self, slug: str) -> int:
+        url = f"{self._ENDPOINT}/rating"
+        data = {
+            "datasetId": id,
+            "qualityRating": quality_rating,
+            "metadataRating": meta_data_rating
+        }
+        self._http_client.request(HttpMethod.POST, url, data)
+        return 'Submitted'
+
+    def get_dataset_rating_by_slug(self, slug: str) -> str:
         """
         Retrieves rating of the dataset by given slug.
         """
