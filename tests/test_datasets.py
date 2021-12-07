@@ -563,8 +563,24 @@ def test_negative_rate_dataset(datasets: Datasets):
             'c114a8a9-40ed-46c9-824f-dda1d92776de', 11, -1)
 
 
-# def test_download_file(datasets: Datasets):
-#     datasets.download_file(
-#         '04cd57e3-34ee-4e11-bd4d-a9016a8a7694',
-#         '731cff3b-7d33-40db-a000-d9717d8e0118'
-#     )
+@responses.activate
+def test_download_file(datasets: Datasets):
+    mock_post_auth()
+    responses.add(
+        responses.POST,
+        join_base_url_values([DATASET_ID, 'files', FILE_ID, 'download']),
+        body=b"Some sort of text.",
+    )
+    outfile = 'outfile.txt'
+
+    result = datasets.download_file(
+        DATASET_ID,
+        FILE_ID,
+        outfile
+    )
+
+    from pathlib import Path
+    f = Path(outfile)
+
+    assert f.exists()
+    assert result == 0
