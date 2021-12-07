@@ -20,6 +20,7 @@ from avaandmed.api_resources.common import (
     Notification,
     Region,
     ResourceType,
+    SearchResult,
     TopicCategory,
     UpdateIntervalUnit
 )
@@ -49,6 +50,7 @@ MOCK_TOKEN_FILE = DATA_DIR / 'token.json'
 MOCK_DATASET_LIST_FILE = DATA_DIR / 'dataset_list.json'
 MOCK_PREVIEW_FILE = DATA_DIR / 'preview.json'
 MOCK_COLUMNS_FILE = DATA_DIR / 'file_columns.json'
+MOCK_SEARCH_RESULTS = DATA_DIR / 'search.json'
 
 
 def join_base_url_values(path_values: List[str]):
@@ -584,3 +586,16 @@ def test_download_file(datasets: Datasets):
 
     assert f.exists()
     assert result == 0
+
+
+@responses.activate
+def test_search(datasets: Datasets):
+    keyword_id = 41
+    region_id = 2
+    year = 2020
+    search_url = f"search?keywordIds={keyword_id}&regionIds={region_id}&year={year}"
+
+    stub_get([search_url], MOCK_SEARCH_RESULTS)
+    result = datasets.search(keyword_id, region_id, year)
+
+    assert isinstance(result[0], SearchResult)

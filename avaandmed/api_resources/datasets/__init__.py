@@ -1,5 +1,5 @@
 from typing import Any, List, Dict
-from avaandmed.api_resources.common import FileColumn
+from avaandmed.api_resources.common import FileColumn, SearchResult
 
 from avaandmed.exceptions import AvaandmedException
 from avaandmed.http.http_client import HttpClient, HttpMethod
@@ -158,3 +158,12 @@ class Datasets:
         """
         url = f"{self._ENDPOINT}/rating/{slug}"
         return self._http_client.request(HttpMethod.GET, url=url)
+
+    def search(self, keywordId: int, regionId: int, year: int) -> List[SearchResult]:
+        """
+        Search datasets based on keyword ID, region ID and year.
+        Quite limited search capabilities.
+        """
+        url = f"{self._ENDPOINT}/search?keywordIds={keywordId}&regionIds={regionId}&year={year}"
+        results = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(List[SearchResult], results)
