@@ -104,26 +104,19 @@ class HttpClient:
             return res.json()['data']
 
     # TODO
-    def download(self, url: str, destination: str = None):
+    def download(self, url: str, destination: str) -> int:
         session = self.__session
         download_url = f"{self.__BASE_URL}{url}"
-
-        if destination is None:
-            destination = str(Path.home() / 'Downloads')
-
         access_token = self.__get_token()
         session.headers.update({'Authorization': f"Bearer {access_token}"})
 
-        with session.get(download_url, stream=True) as s:
+        with session.post(download_url, stream=True) as s:
             try:
                 s.raise_for_status()
 
                 with open(destination, 'wb') as outfile:
                     for chunk in s.iter_content(chunk_size=1024):
-                        print(chunk)
                         outfile.write(chunk)
-
-                    return 0
 
             except exceptions.HTTPError:
                 raise AvaandmedApiExcepiton(
@@ -131,3 +124,5 @@ class HttpClient:
                     uri=download_url,
                     msg=s.json()['message'],
                 )
+
+        return 0

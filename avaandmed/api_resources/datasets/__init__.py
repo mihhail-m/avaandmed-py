@@ -89,15 +89,16 @@ class Datasets:
         columns = self._http_client.request(HttpMethod.GET, url=url)
         return parse_obj_as(List[FileColumn], columns)
 
-    # TODO
-    def download_file(self, id: str, fileId: str, dst: str = None) -> None:
+    def download_file(self, id: str, fileId: str, out_file: str) -> int:
         """
         Downloads processed file of a dataset.
-        By default file will be downloaded into current user's Downloads directory.
-        Otherwise provide full path to the file. Ex: path/to/file.txt
+        By default file will be downloaded into current user's working directory.
         """
+        if len(out_file) == 0:
+            raise AvaandmedException('File name cannot be empty')
+
         url = f"{self._ENDPOINT}/{id}/files/{fileId}/download"
-        self._http_client.download(url, dst)
+        return self._http_client.download(url, out_file)
 
     def file_privacy_violations(self, id: str, description: str) -> str:
         """
