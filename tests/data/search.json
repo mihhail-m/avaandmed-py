@@ -1,0 +1,72 @@
+{
+    "data": [
+        {
+            "id": "4c66ece8-4c66-4093-91ef-b8512c6b1bfe",
+            "slug": "2m-reaga-andmestik",
+            "name": "2M reaga andmestik",
+            "nameEt": "2M reaga andmestik",
+            "nameEn": "2M reaga andmestik",
+            "description": "2M reaga andmestik",
+            "descriptionEt": "2M reaga andmestik",
+            "descriptionEn": "2M reaga andmestik",
+            "informationHolder": {
+                "slug": "user-slug-12",
+                "name": "Robin Sulg"
+            },
+            "updateIntervalFrequency": 1,
+            "updateIntervalUnit": "week",
+            "createdAt": "2020-12-07T15:41:12.683Z",
+            "updatedAt": "2020-12-07T15:50:26.884Z",
+            "keywords": [
+                "atseetamiid"
+            ],
+            "keywordsEt": [
+                "atseetamiid"
+            ],
+            "keywordsEn": [
+                "acetamide"
+            ],
+            "categories": [
+                "KEEMIA. KEEMIATÖÖSTUS"
+            ],
+            "categoriesEt": [],
+            "categoriesEn": []
+        },
+        {
+            "id": "2642f550-7a42-4ca8-9a3e-53541277d146",
+            "slug": "5m-reaga-csv-fail-lisatud",
+            "name": "5M reaga CSV fail-lisatud",
+            "nameEt": "5M reaga CSV fail-lisatud",
+            "nameEn": "5M reaga CSV fail-lisatud",
+            "description": "5M reaga CSV fail",
+            "descriptionEt": "5M reaga CSV fail",
+            "descriptionEn": "5M reaga CSV fail",
+            "informationHolder": {
+                "slug": "user-slug-12",
+                "name": "Robin Sulg"
+            },
+            "updateIntervalFrequency": 1,
+            "updateIntervalUnit": "day",
+            "createdAt": "2020-12-04T17:20:57.263Z",
+            "updatedAt": "2020-12-11T06:14:25.714Z",
+            "keywords": [
+                "atseetamiid"
+            ],
+            "keywordsEt": [
+                "atseetamiid"
+            ],
+            "keywordsEn": [
+                "acetamide"
+            ],
+            "categories": [
+                "KEEMIA. KEEMIATÖÖSTUS"
+            ],
+            "categoriesEt": [],
+            "categoriesEn": []
+        }
+    ],
+    "metadata": {
+        "total": 2,
+        "page": 1
+    }
+}

@@ -1,0 +1,209 @@
+{
+    "data": {
+        "id": "4446e091-adfc-4e1a-9e13-733d2b95f6e4",
+        "status": "completed",
+        "nameEt": "Eesti rahvastikutiheduse 1 km x 1 km ruutkaart",
+        "nameEn": "Eesti rahvastikutiheduse 1 km x 1 km ruutkaart",
+        "slug": "eesti-rahvastikutiheduse-1-km-x-1-km-ruutkaart",
+        "descriptionEt": "Andmekogumi andmed on pärit Eesti statistika andmebaasist. Ruudustikupõhised rahvastiku andmed seisuga 1. jaanuar 2019. Rahvaloenduse andmed on georeferentseeritud hoone täpsusega, mis võimaldab andmeid agregeerida erineva resolutsiooniga ruutvõrkude tasandile. Ruutudesse agregeerimisel võeti aluseks hoone tsentroid. Mitme ruudu piiresse jääva hoone andmed seoti selle ruuduga, kus asus hoone tsentroid. Kui rahvastiku andmeid ei olnud võimalik seostada hoonega (andmed seoti hoonega aadressi alusel ja mõnel juhul aadress ei olnud tuvastatav), lisati andmed küla või loendusjaoskonna keskele. Küla- või jaoskonnakeskusega on seotud ka loendatud kodutud. ---> Rahvastiku 1 km x 1 km ruutkaart katab kogu Eesti territooriumi sisaldades ainult asustatud ruute. Ruudustikupõhised andmed on aluseks pädevate otsuste langetamisel ühiskondlike planeeringute ja arengukavade, sh regionaalarengu kava koostamisel. Ruudustikupõhiseid andmeid kasutatakse teaduslikes uuringutes, erasektoris peamiselt parima asukoha valikul ning sihtgrupi määratlemisel.",
+        "descriptionEn": "Andmekogumi andmed on pärit Eesti statistika andmebaasist. Ruudustikupõhised rahvastiku andmed seisuga 1. jaanuar 2019. Rahvaloenduse andmed on georeferentseeritud hoone täpsusega, mis võimaldab andmeid agregeerida erineva resolutsiooniga ruutvõrkude tasandile. Ruutudesse agregeerimisel võeti aluseks hoone tsentroid. Mitme ruudu piiresse jääva hoone andmed seoti selle ruuduga, kus asus hoone tsentroid. Kui rahvastiku andmeid ei olnud võimalik seostada hoonega (andmed seoti hoonega aadressi alusel ja mõnel juhul aadress ei olnud tuvastatav), lisati andmed küla või loendusjaoskonna keskele. Küla- või jaoskonnakeskusega on seotud ka loendatud kodutud. ---> Rahvastiku 1 km x 1 km ruutkaart katab kogu Eesti territooriumi sisaldades ainult asustatud ruute. Ruudustikupõhised andmed on aluseks pädevate otsuste langetamisel ühiskondlike planeeringute ja arengukavade, sh regionaalarengu kava koostamisel. Ruudustikupõhiseid andmeid kasutatakse teaduslikes uuringutes, erasektoris peamiselt parima asukoha valikul ning sihtgrupi määratlemisel.",
+        "maintainer": "Statistikaamet",
+        "maintainerEmail": "stat@stat.ee",
+        "maintainerPhone": null,
+        "citations": [
+            {
+                "url": "https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/stat_rahvastikutihedus",
+                "name": "Eesti rahvastikutiheduse 1 km x 1 km ruutkaart"
+            },
+            {
+                "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wms?service=WMS&version=1.3.0&request=GetCapabilities",
+                "name": "WMS teenuse getCapabilities"
+            },
+            {
+                "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs?service=WFS&version=2.0.0&request=GetCapabilities",
+                "name": "WFS teenuse getCapabilities"
+            }
+        ],
+        "conformities": [
+            {
+                "releaseDate": "2008-12-04T00:00:00",
+                "specification": "Komisjoni määrus (EÜ) nr 1205/2008, 3. detsember 2008, millega rakendatakse Euroopa Parlamendi ja nõukogu direktiivi 2007/2/EÜ seoses metaandmetega"
+            },
+            {
+                "releaseDate": "2010-12-08T00:00:00",
+                "specification": "Komisjoni määrus (EL) nr 1089/2010, 23. november 2010, millega rakendatakse Euroopa Parlamendi ja nõukogu direktiivi 2007/2/EÜ seoses ruumiandmekogumite ja -teenuste ristkasutatavusega"
+            }
+        ],
+        "southLatitude": "57.47",
+        "northLatitude": "59.68",
+        "westLongitude": "21.77",
+        "eastLongitude": "28.21",
+        "url": null,
+        "language": "et",
+        "dataFrom": "2013-02-08T00:00:00.000Z",
+        "dataTo": null,
+        "updateIntervalUnit": "unknown",
+        "updateIntervalFrequency": 0,
+        "access": "public",
+        "availableTo": null,
+        "organizationId": "0d9aff3a-5ae8-4155-b27f-08f449199d56",
+        "userId": null,
+        "landingPage": null,
+        "qualifiedAttribution": null,
+        "wasGeneratedBy": null,
+        "spatialResolution": "1000",
+        "geoportalIdentifier": "stat_rahvastikutihedus",
+        "geoportalKeywords": "demography, statistics, INSPIRE, ruut, rahvastiku paiknemine, rahvastik, statistika",
+        "lineage": "2000. ja 2011. aasta rahva ja eluruumide loenduse andmed on georeferentseeritud ja agregeeritud ruutvõrkude tasandile. Rahvastiku andmed on mõeldud kasutamiseks koos statistilise ruutvõrguga. Ruutvõrguga sidumiseks on ruudul unikaalne identifikaator, mis kajastab ruudu küljepikkust ja ruudu alumise vasaku nurga tasapinnalisi ristkoordinaate.",
+        "pixelSize": null,
+        "resourceType": "dataset",
+        "topicCategories": [
+            "society"
+        ],
+        "spatialRepresentationType": "vector",
+        "spatialDataServiceType": null,
+        "temporalResolution": null,
+        "maturity": null,
+        "version": 2,
+        "versionNotes": null,
+        "isActual": true,
+        "publishedAt": "2021-10-20T12:03:31.246Z",
+        "createdAt": "2021-10-20T12:03:31.211Z",
+        "updatedAt": "2021-11-13T02:00:43.013Z",
+        "licence": {
+            "id": 1,
+            "name": "Creative Commons CC0 1.0 Üldine",
+            "description": "õigus vabalt edasi arendada, muuta, muudesse töödesse inkorporeerida, taaskasutada ja jagada mistahes eesmärgil"
+        },
+        "user": null,
+        "organization": {
+            "id": "0d9aff3a-5ae8-4155-b27f-08f449199d56",
+            "regCode": "70000332",
+            "name": "Statistikaamet",
+            "slug": "organization-slug-1198",
+            "contact": "puudub",
+            "contactEmail": "stat@stat.ee",
+            "description": "",
+            "isPublicBody": true,
+            "notifications": []
+        },
+        "coordinateReferenceSystems": [
+            {
+                "id": 3578,
+                "uri": "http://www.opengis.net/def/crs/EPSG/0/4258"
+            },
+            {
+                "id": 2758,
+                "uri": "http://www.opengis.net/def/crs/EPSG/0/3301"
+            }
+        ],
+        "keywords": [
+            {
+                "id": 4280,
+                "name": "ruumiandmed",
+                "language": "et",
+                "keywordId": 4280,
+                "keywordEmsCategory": {
+                    "id": 6470,
+                    "emsCategoryId": 47,
+                    "keywordId": 4280
+                }
+            },
+            {
+                "id": 3068,
+                "name": "rahvastik",
+                "language": "et",
+                "keywordId": 3068,
+                "keywordEmsCategory": {
+                    "id": 4614,
+                    "emsCategoryId": 14,
+                    "keywordId": 3068
+                }
+            }
+        ],
+        "categories": [
+            {
+                "id": 14,
+                "name": "DEMOGRAAFIA. STATISTIKA"
+            },
+            {
+                "id": 47,
+                "name": "GEOGRAAFIA. GEODEESIA. KARTOGRAAFIA"
+            }
+        ],
+        "regions": [
+            {
+                "id": 16,
+                "name": "Kogu Eesti",
+                "coordinates": "22.602805 59.084375,28.041905 59.443246, 27.400821 57.752806,22.203044 58.100591"
+            }
+        ],
+        "files": [],
+        "parentDatasets": [
+            {
+                "id": "ae9dad96-121b-46af-b5a4-8f1bca5be671",
+                "status": "completed",
+                "nameEt": "Eesti statistika andmebaas: rahvastik",
+                "nameEn": "Eesti statistika andmebaas: rahvastik",
+                "slug": "eesti-statistika-andmebaas:-rahvastik",
+                "descriptionEt": "Rahvastik maakondade, kohalike omavalitsuste ja asustusüksuste lõikes. Andmekogu sisaldab lisaks rahvastikunäitajatele haldus- või asustusüksuste ruumikujusid, nimesid ja koode vastavalt Eesti haldus- ja asustusjaotuse klassifikaatorile. Andmekogu sobib rahvastiku paiknemise uurimiseks ja erinevate statistiliste analüüside tegemiseks.",
+                "descriptionEn": "Rahvastik maakondade, kohalike omavalitsuste ja asustusüksuste lõikes. Andmekogu sisaldab lisaks rahvastikunäitajatele haldus- või asustusüksuste ruumikujusid, nimesid ja koode vastavalt Eesti haldus- ja asustusjaotuse klassifikaatorile. Andmekogu sobib rahvastiku paiknemise uurimiseks ja erinevate statistiliste analüüside tegemiseks.",
+                "maintainer": "Statistikaamet",
+                "maintainerEmail": "stat@sta.ee",
+                "maintainerPhone": null,
+                "conformities": [
+                    {
+                        "releaseDate": "2008-12-04T00:00:00",
+                        "specification": "Komisjoni määrus (EÜ) nr 1205/2008, 3. detsember 2008, millega rakendatakse Euroopa Parlamendi ja nõukogu direktiivi 2007/2/EÜ seoses metaandmetega"
+                    },
+                    {
+                        "releaseDate": "2010-12-08T00:00:00",
+                        "specification": "Komisjoni määrus (EL) nr 1089/2010, 23. november 2010, millega rakendatakse Euroopa Parlamendi ja nõukogu direktiivi 2007/2/EÜ seoses ruumiandmekogumite ja -teenuste ristkasutatavusega"
+                    }
+                ],
+                "southLatitude": "57.47",
+                "northLatitude": "59.68",
+                "westLongitude": "21.77",
+                "eastLongitude": "28.21",
+                "language": "et",
+                "dataFrom": "2013-06-20T00:00:00.000Z",
+                "dataTo": null,
+                "updateIntervalUnit": "unknown",
+                "updateIntervalFrequency": 0,
+                "access": "public",
+                "availableTo": null,
+                "organizationId": "0d9aff3a-5ae8-4155-b27f-08f449199d56",
+                "userId": null,
+                "landingPage": null,
+                "qualifiedAttribution": null,
+                "wasGeneratedBy": null,
+                "spatialResolution": "2500000",
+                "geoportalIdentifier": "stat_pop_unit",
+                "geoportalKeywords": "demography, statistics, rahvastik, rahvastiku paiknemine, statistika",
+                "lineage": "Andmete aluseks on Maa-ameti kodulehelt salvestatud Eesti haldus- ja asustusjaotuse piirid (http://geoportaal.maaamet.ee). Piirid on generaliseeritud kasutamiseks mõõtkavas 1: 2 500 000.",
+                "pixelSize": null,
+                "resourceType": "dataset",
+                "topicCategories": [
+                    "society"
+                ],
+                "spatialRepresentationType": "vector",
+                "spatialDataServiceType": null,
+                "temporalResolution": null,
+                "maturity": null,
+                "version": 0,
+                "versionNotes": null,
+                "isActual": true,
+                "publishedAt": "2021-10-20T12:03:20.841Z",
+                "createdAt": "2021-10-20T12:03:20.811Z",
+                "updatedAt": "2021-10-20T12:03:20.842Z",
+                "name": "Eesti statistika andmebaas: rahvastik"
+            }
+        ],
+        "childDatasets": [],
+        "mapRegions": [
+            "Kogu Eesti"
+        ],
+        "isContentAllowed": true,
+        "name": "Eesti rahvastikutiheduse 1 km x 1 km ruutkaart"
+    }
+}

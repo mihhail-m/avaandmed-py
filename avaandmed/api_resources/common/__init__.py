@@ -169,3 +169,47 @@ class Notification(str, Enum):
     DATASET_ACCESS_REQUEST = 'DATASET_ACCESS_REQUEST'
     DATA_WISH_NEW = 'DATA_WISH_NEW'
     DATASET_PRIVACY_VIOLATION = 'DATASET_PRIVACY_VIOLATION'
+
+
+class FileColumn(ApiResource):
+    """
+    Handles field serialization from /columns endpoint.
+    """
+    column: Optional[str]
+    type: Optional[str]
+    description: Optional[str]
+    api_field_name: Optional[str]
+    unit: Optional[str]
+    required: Optional[bool]
+    private: Optional[bool]
+    unique: Optional[bool]
+
+
+class InformationHolder(ApiResource):
+    slug: str
+    name: str
+
+
+class SearchResult(ApiResource):
+    """
+    Handles search results serialization.
+    """
+    id: Optional[str]
+    slug: Optional[str]
+    name: Optional[str]
+    name_et: Optional[str]
+    name_en: Optional[str]
+    description: Optional[str]
+    description_et: Optional[str]
+    description_en: Optional[str]
+    information_holder: Optional[InformationHolder]
+    update_interval_frequency: Optional[int]
+    update_interval_unit: Optional[UpdateIntervalUnit]
+    created_at: Optional[str]
+    updated_at: Optional[str]
+    keywords: Optional[List[str]]
+    keywords_et: Optional[List[str]]
+    keywords_en: Optional[List[str]]
+    categories: Optional[List[str]]
+    categories_et: Optional[List[str]]
+    categories_en: Optional[List[str]]

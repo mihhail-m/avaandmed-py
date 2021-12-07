@@ -1,0 +1,84 @@
+{
+    "data": [
+        {
+            "column": "Activity",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "Responsible and relevant authority",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "Short description of the content",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "Term",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "Tähtaeg",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "sisu lühikirjeldus",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "tegevus",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        },
+        {
+            "column": "vastutav ja kaasatud asutus",
+            "type": "text",
+            "description": null,
+            "apiFieldName": null,
+            "unit": null,
+            "required": false,
+            "private": false,
+            "unique": false
+        }
+    ]
+}
