@@ -6,13 +6,17 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='avaandmed',
-    version='0.0.1.dev1',
+    version='0.1.0.dev',
     description='Python library for Avaandmed(Open Data) portal API',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/Michanix/avaandmed-py',
     author='Mihhail Matišinets',
     author_email='mihhail.matisinets@gmail.com',
+    install_requires=[
+        'requests>=2.25',
+        'pydantic>=1.8'
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
