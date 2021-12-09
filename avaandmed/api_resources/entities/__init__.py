@@ -213,3 +213,6 @@ class SearchResult(ApiResource):
     categories: Optional[List[str]]
     categories_et: Optional[List[str]]
     categories_en: Optional[List[str]]
+
+
+Preview = List[Dict[str, Any]]

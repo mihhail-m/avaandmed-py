@@ -1,13 +1,11 @@
 # type: ignore
-from os import access
-from attr import validate
 import pytest
 import responses
 from pathlib import Path
 from typing import List
 
 from avaandmed import Avaandmed
-from avaandmed.api_resources.common import (
+from avaandmed.api_resources.entities import (
     Access,
     Category,
     Citation,
@@ -28,6 +26,7 @@ from avaandmed.api_resources.datasets import Datasets
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.organizations.organization import Organization
 from avaandmed.api_resources.users.user import User
+from avaandmed.api_resources.organizations.my_organization import MyOrganization
 from avaandmed.exceptions import AvaandmedApiExcepiton, AvaandmedException
 from .utils import load_json
 

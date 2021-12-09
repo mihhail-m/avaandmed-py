@@ -1,39 +1,34 @@
-from typing import Any, List, Dict
-from avaandmed.api_resources.common import FileColumn, SearchResult
+from typing import List
+from avaandmed.api_resources.entities import FileColumn, Preview, SearchResult
+from avaandmed.api_resources.datasets.dataset_repository import DatasetRepository
+from avaandmed.api_resources.datasets.dataset import Dataset
 
 from avaandmed.exceptions import AvaandmedException
-from avaandmed.http.http_client import HttpClient, HttpMethod
-from .dataset import Dataset
-from pydantic import parse_obj_as
-
-Preview = List[Dict[str, Any]]
+from avaandmed.http.http_client import HttpClient
 
 
 class Datasets:
     """
     Collection class responsible for actions with Datasets.
     """
-    _http_client: HttpClient
-    _ENDPOINT = '/datasets'
 
     def __init__(self, http_client: HttpClient) -> None:
-        self._http_client = http_client
+        self._ENDPOINT = '/datasets'
+        self._repository = DatasetRepository(http_client=http_client)
 
     def get_by_id(self, id: str) -> Dataset:
         """
         Returns Dataset instance with specified id.
         """
         url = f"{self._ENDPOINT}/{id}"
-        dataset_json = self._http_client.request(HttpMethod.GET, url=url)
-        return Dataset.parse_obj(dataset_json)
+        return self._repository._get_dataset(url)
 
     def get_by_slug(self, slug: str) -> Dataset:
         """
         Returns Dataset instance with specified slug.
         """
         url = f"{self._ENDPOINT}/slug/{slug}"
-        dataset_json = self._http_client.request(HttpMethod.GET, url=url)
-        return Dataset.parse_obj(dataset_json)
+        return self._repository._get_dataset(url)
 
     def get_dataset_list(self, limit: int = 20) -> List[Dataset]:
         """
@@ -44,25 +39,21 @@ class Datasets:
             raise AvaandmedException('Limit cannot 0 or less.')
 
         url = f"{self._ENDPOINT}?limit={limit}"
-        datasets_json = self._http_client.request(HttpMethod.GET, url=url)
-        dataset_list = parse_obj_as(List[Dataset], datasets_json)
-        return dataset_list
+        return self._repository._get_dataset_list(url)
 
     def get_total(self) -> int:
         """
         Returns total amount of datasets present at the moment.
         """
         url = f"{self._ENDPOINT}/total"
-        total = self._http_client.request(HttpMethod.GET, url=url)
-        return total
+        return self._repository._get_total(url)
 
     def get_distinct_mimetypes(self) -> List[str]:
         """
         Returns distinct mimetypes used by API.
         """
         url = f"{self._ENDPOINT}/mimetypes/distinct"
-        mimetypes = self._http_client.request(HttpMethod.GET, url=url)
-        return mimetypes
+        return self._repository._get_distinct_mimetypes(url)
 
     def get_file_rows_preview(self, id: str, fileId: str) -> Preview:
         """
@@ -70,24 +61,21 @@ class Datasets:
         Returns object according to the provided data in the dataset's file.
         """
         url = f"{self._ENDPOINT}/{id}/files/{fileId}/preview"
-        preview = self._http_client.request(HttpMethod.GET, url=url)
-        return preview
+        return self._repository._get_file_rows_preview(url)
 
     def paginate_file_by_id(self, id: str, fileId: str) -> Preview:
         """
         Paginate through successfully processed file content.
         """
         url = f"{self._ENDPOINT}/{id}/files/{fileId}"
-        file = self._http_client.request(HttpMethod.GET, url=url)
-        return file
+        return self._repository._paginate_file_by_id(url)
 
     def get_file_columns(self, id: str, fileId: str) -> List[FileColumn]:
         """
         Returns columns from the dataset file.
         """
         url = f"{self._ENDPOINT}/{id}/files/{fileId}/columns"
-        columns = self._http_client.request(HttpMethod.GET, url=url)
-        return parse_obj_as(List[FileColumn], columns)
+        return self._repository._get_file_columns(url)
 
     def download_file(self, id: str, fileId: str, out_file: str) -> int:
         """
@@ -98,7 +86,7 @@ class Datasets:
             raise AvaandmedException('File name cannot be empty')
 
         url = f"{self._ENDPOINT}/{id}/files/{fileId}/download"
-        return self._http_client.download(url, out_file)
+        return self._repository._download_file(url, out_file)
 
     def file_privacy_violations(self, id: str, description: str) -> str:
         """
@@ -114,7 +102,7 @@ class Datasets:
             "datasetId": id,
             "description": description
         }
-        self._http_client.request(HttpMethod.POST, url, data)
+        self._repository._file_privacy_violations(url, data)
         return 'Submitted'
 
     def apply_for_access(self, id: str, description: str):
@@ -131,7 +119,7 @@ class Datasets:
             "datasetId": id,
             "description": description
         }
-        self._http_client.request(HttpMethod.POST, url, data)
+        self._repository._apply_for_access(url, data)
         return 'Submitted'
 
     def rate_dataset(self, id: str, quality_rating: int, meta_data_rating: int) -> str:
@@ -149,7 +137,7 @@ class Datasets:
             "qualityRating": quality_rating,
             "metadataRating": meta_data_rating
         }
-        self._http_client.request(HttpMethod.POST, url, data)
+        self._repository._rate_dataset(url, data)
         return 'Submitted'
 
     def get_dataset_rating_by_slug(self, slug: str) -> str:
@@ -157,7 +145,7 @@ class Datasets:
         Retrieves rating of the dataset by given slug.
         """
         url = f"{self._ENDPOINT}/rating/{slug}"
-        return self._http_client.request(HttpMethod.GET, url=url)
+        return self._repository._get_dataset_rating_by_slug(url)
 
     def search(self, keywordId: int, regionId: int, year: int) -> List[SearchResult]:
         """
@@ -165,5 +153,4 @@ class Datasets:
         Quite limited search capabilities.
         """
         url = f"{self._ENDPOINT}/search?keywordIds={keywordId}&regionIds={regionId}&year={year}"
-        results = self._http_client.request(HttpMethod.GET, url)
-        return parse_obj_as(List[SearchResult], results)
+        return self._repository._search(url)
