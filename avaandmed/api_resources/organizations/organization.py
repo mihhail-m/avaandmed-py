@@ -1,6 +1,6 @@
 from typing import Optional, List
+from avaandmed.api_resources.entities import Notification
 from avaandmed.api_resources import ApiResource
-from avaandmed.api_resources.common import Notification
 
 
 class Organization(ApiResource):

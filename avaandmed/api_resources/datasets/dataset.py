@@ -1,6 +1,8 @@
 from typing import List, Optional
 from avaandmed.api_resources import ApiResource
-from avaandmed.api_resources.common import (
+from avaandmed.api_resources.organizations.organization import Organization
+from avaandmed.api_resources.users.user import User
+from avaandmed.api_resources.entities import (
     Access,
     Category,
     Citation,
@@ -14,8 +16,6 @@ from avaandmed.api_resources.common import (
     TopicCategory,
     UpdateIntervalUnit
 )
-from avaandmed.api_resources.organizations.organization import Organization
-from avaandmed.api_resources.users.user import User
 
 
 class Dataset(ApiResource):
