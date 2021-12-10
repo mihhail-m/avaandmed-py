@@ -19,14 +19,19 @@ def key_id():
     return KEY_ID
 
 
-@pytest.fixture
+@pytest.fixture()
 def avaandmed_client():
     return Avaandmed(API_TOKEN, KEY_ID, BASE_HOSTNAME)
 
 
-@pytest.fixture()
+@pytest.fixture
 def datasets(avaandmed_client: Avaandmed):
     return avaandmed_client.datasets
+
+
+@pytest.fixture
+def users_datasets(avaandmed_client: Avaandmed):
+    return avaandmed_client.users.me.dataset
 
 
 @pytest.fixture(scope='class')
