@@ -16,7 +16,8 @@ class Me:
     @property
     def dataset(self):
         if self._dataset is None:
-            self._dataset = UserDataset(self._http_client)
+            self._dataset = UserDataset(
+                base_end_point=self._ENDPOINT, http_client=self._http_client)
         return self._dataset
 
 
