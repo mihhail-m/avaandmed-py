@@ -1,8 +1,19 @@
 from typing import List
 from pydantic import parse_obj_as
+import responses
 from avaandmed.http.http_client import HttpClient, HttpMethod
 from avaandmed.api_resources.datasets.dataset import Dataset
-from avaandmed.api_resources.entities import FileColumn, Preview, SearchResult
+from avaandmed.api_resources.entities import (
+    AccessPermission,
+    DatasetRatingList,
+    File,
+    FileColumn,
+    FileErrors,
+    Index,
+    Preview,
+    PrivacyViolation,
+    SearchResult
+)
 
 
 class DatasetRepository:
@@ -39,8 +50,8 @@ class DatasetRepository:
         columns = self._http_client.request(HttpMethod.GET, url=url)
         return parse_obj_as(List[FileColumn], columns)
 
-    def _download_file(self, url: str, out_file: str) -> int:
-        return self._http_client.download(url, out_file)
+    def _download_file(self, url: str, out_file: str, json={}) -> int:
+        return self._http_client.download(url, out_file, json)
 
     def _file_privacy_violations(self, url: str, data: dict) -> str:
         body = {
@@ -70,6 +81,90 @@ class DatasetRepository:
     def _get_dataset_rating_by_slug(self, url: str) -> str:
         return self._http_client.request(HttpMethod.GET, url=url)
 
+    def _get_user_dataset_rating_by_slug(self, url: str) -> DatasetRatingList:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(DatasetRatingList, result)
+
     def _search(self, url: str) -> List[SearchResult]:
-        results = self._http_client.request(HttpMethod.GET, url)
-        return parse_obj_as(List[SearchResult], results)
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(List[SearchResult], result)
+
+    def _create_metadata(self, url: str, data: dict):
+        pass
+
+    def _get_privacy_violations(self, url: str) -> List[PrivacyViolation]:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(List[PrivacyViolation], result)
+
+    def _get_privacy_violation(self, url: str) -> PrivacyViolation:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(PrivacyViolation, result)
+
+    def _consider_privacy_violations(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.PUT, url)
+        return True
+
+    def _disregard_privacy_violations(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.PUT, url)
+        return True
+
+    def _get_access_permissions(self, url: str) -> List[AccessPermission]:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(List[AccessPermission], result)
+
+    def _get_access_permission(self, url: str) -> AccessPermission:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(AccessPermission, result)
+
+    def _approve_access_permissions(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.PUT, url)
+        return True
+
+    def _decline_access_permissions(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.PUT, url)
+        return True
+
+    def _get_latest_pending(self, url: str) -> Dataset:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(Dataset, result)
+
+    def _delete_resource(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.DELETE, url)
+        return True
+
+    def _update_dataset(self, url: str, data: dict) -> bool:
+        self._http_client.request(HttpMethod.PUT, url, data)
+        return True
+
+    def _discard_dataset(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.PUT, url)
+        return True
+
+    def _publish_dataset(self, url: str) -> bool:
+        self._http_client.request(HttpMethod.PUT, url)
+        return True
+
+    def _upload_file(self, url: str, data: dict):
+        pass
+
+    def _get_files(self, url: str) -> List[File]:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(List[File], result)
+
+    def _update_columns_metadata(sefl, url: str):
+        pass
+
+    def _create_file_indices(self, url: str, data: dict) -> bool:
+        self._http_client.request(HttpMethod.POST, url, data)
+        return True
+
+    def _get_file_index(self, url: str) -> Index:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(Index, result)
+
+    def _get_file_errors(self, url: str) -> FileErrors:
+        result = self._http_client.request(HttpMethod.GET, url)
+        return parse_obj_as(FileErrors, result)
+
+    def _update_cell_value(self, url: str, data: dict):
+        pass
