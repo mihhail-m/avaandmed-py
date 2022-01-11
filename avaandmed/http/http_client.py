@@ -10,7 +10,7 @@ class HttpMethod(Enum):
     GET = 'get'
     POST = 'post'
     DELETE = 'delete'
-    UPDATE = 'update'
+    PUT = 'put'
 
 
 class AllowedLang(Enum):
@@ -96,21 +96,20 @@ class HttpClient:
             except exceptions.RequestException as ex:
                 raise SystemExit(ex)
 
-            if method == HttpMethod.POST:
+            if method == HttpMethod.POST or method == HttpMethod.PUT:
                 if res.content != b'':
                     return res.json()
                 return ''
 
             return res.json()['data']
 
-    # TODO
-    def download(self, url: str, destination: str) -> int:
+    def download(self, url: str, destination: str, json={}) -> int:
         session = self.__session
         download_url = f"{self.__BASE_URL}{url}"
         access_token = self.__get_token()
         session.headers.update({'Authorization': f"Bearer {access_token}"})
 
-        with session.post(download_url, stream=True) as s:
+        with session.post(download_url, json=json, stream=True) as s:
             try:
                 s.raise_for_status()
 
