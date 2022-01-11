@@ -1,0 +1,28 @@
+{
+    "data": [
+        {
+            "id": "af1a7ed9-31c9-45a5-a8b3-e59345538444",
+            "userId": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+            "datasetId": "818fe24e-4db3-4737-bcfc-84e7e2f550af",
+            "status": "pending",
+            "description": "Long description to apply for permissions access for testing.",
+            "createdAt": "2021-12-16T10:17:20.949Z",
+            "dataset": {
+                "id": "818fe24e-4db3-4737-bcfc-84e7e2f550af",
+                "nameEt": "avaandmed-py-test",
+                "nameEn": "avaandmed-py-test",
+                "slug": "avaandmed-py-test",
+                "organizationId": null,
+                "userId": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+                "name": "avaandmed-py-test"
+            },
+            "user": {
+                "id": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+                "firstName": "Mihhail",
+                "lastName": "Matisinets",
+                "name": "Mihhail Matisinets"
+            },
+            "seen": true
+        }
+    ]
+}

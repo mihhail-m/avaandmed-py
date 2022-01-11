@@ -1,0 +1,24 @@
+{
+    "data": [
+        {
+            "id": "ecc8aefb-4023-48a7-a425-0ad353a9f652",
+            "name": "HighestGrossers.csv",
+            "mimetype": "application/vnd.ms-excel",
+            "size": "2779",
+            "datasetId": "a25f9e33-cc44-43a5-988d-15af80de5c0b",
+            "metadata": {},
+            "processingStatus": "completed",
+            "storageFilename": "ecc8aefb-4023-48a7-a425-0ad353a9f652-HighestGrossers.csv"
+        },
+        {
+            "id": "a71cb0c0-d2fb-48fa-a44f-e6fc4aca3891",
+            "name": "PopularCreativeTypes.csv",
+            "mimetype": "application/vnd.ms-excel",
+            "size": "627",
+            "datasetId": "a25f9e33-cc44-43a5-988d-15af80de5c0b",
+            "metadata": {},
+            "processingStatus": "completed",
+            "storageFilename": "a71cb0c0-d2fb-48fa-a44f-e6fc4aca3891-PopularCreativeTypes.csv"
+        }
+    ]
+}

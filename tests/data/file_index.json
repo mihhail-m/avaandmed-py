@@ -1,0 +1,22 @@
+{
+    "data": {
+        "polynomial": [
+            {
+                "id": 20,
+                "column": "aasta"
+            }
+        ],
+        "identifier": [
+            {
+                "id": 14,
+                "column": "aasta",
+                "identifier": "id-1"
+            },
+            {
+                "id": 15,
+                "column": "Movie",
+                "identifier": "movie-1"
+            }
+        ]
+    }
+}
