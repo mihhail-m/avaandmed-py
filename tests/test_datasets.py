@@ -409,12 +409,6 @@ class TestDatasets:
 
     @responses.activate
     def test_download_file(self):
-        # mock_post_auth()
-        # responses.add(
-        #     responses.POST,
-        #     join_base_url_values([DATASET_ID, 'files', FILE_ID, 'download']),
-        #     body=b"Some sort of text.",
-        # )
         url = f"/{DATASET_ID}/files/{FILE_ID}/download"
         self.request_mock.stub_for(
             method=responses.POST, url=url, body=b"Some sort of text", status=201)
