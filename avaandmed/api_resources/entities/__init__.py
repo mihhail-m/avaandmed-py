@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Optional
 from enum import Enum
 from avaandmed.api_resources import ApiResource
+from avaandmed.api_resources.users.user import User
 
 
 class KeywordEmsCategory(ApiResource):
@@ -216,3 +217,58 @@ class SearchResult(ApiResource):
 
 
 Preview = List[Dict[str, Any]]
+
+
+class PartialDatasetInfo(ApiResource):
+    id: Optional[str]
+    name_et: Optional[str]
+    name_en: Optional[str]
+    slug: Optional[str]
+    organiztion_id: Optional[str]
+    user_id: Optional[str]
+    name: Optional[str]
+
+
+class Inquiry(ApiResource):
+    id: Optional[str]
+    user_id: Optional[str]
+    description: Optional[str]
+    dataset_id: Optional[str]
+    status: ProcessingStatus
+    created_at: Optional[str]
+    dataset: Optional[PartialDatasetInfo]
+    user: Optional[User]
+    seen: Optional[bool]
+
+
+PrivacyViolation = Inquiry
+AccessPermission = Inquiry
+
+
+class Polynomial(ApiResource):
+    id: int
+    column: str
+
+
+class Identifier(ApiResource):
+    id: int
+    column: str
+    identifier: str
+
+
+class Index(ApiResource):
+    polynomial: List[Polynomial]
+    identifier: List[Identifier]
+
+
+FileErrors = List[Dict[str, Any]]
+
+
+class DatasetRating(ApiResource):
+    id: int
+    quality_rating: Optional[int]
+    metadata_rating: Optional[int]
+    description: Optional[str]
+
+
+DatasetRatingList = List[DatasetRating]

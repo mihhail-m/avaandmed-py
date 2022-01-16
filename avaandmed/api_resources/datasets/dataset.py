@@ -11,6 +11,7 @@ from avaandmed.api_resources.entities import (
     File,
     Keyword,
     Licence,
+    ProcessingStatus,
     Region,
     ResourceType,
     TopicCategory,
@@ -23,7 +24,7 @@ class Dataset(ApiResource):
     Class for representing Dataset model.
     """
     id: Optional[str]
-    status: Optional[str]
+    status: Optional[ProcessingStatus]
     slug: Optional[str]
     name: Optional[str]
     url: Optional[str]

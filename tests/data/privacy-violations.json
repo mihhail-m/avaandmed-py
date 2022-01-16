@@ -1,0 +1,52 @@
+{
+    "data": [
+        {
+            "id": "c1e5e65e-3b1b-477e-966f-e402d1838c3a",
+            "userId": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+            "description": "This is long privacy violation message for testing.",
+            "datasetId": "c114a8a9-40ed-46c9-824f-dda1d92776de",
+            "status": "pending",
+            "createdAt": "2021-12-06T10:59:54.447Z",
+            "dataset": {
+                "id": "c114a8a9-40ed-46c9-824f-dda1d92776de",
+                "nameEt": "__proto__",
+                "nameEn": "__proto__",
+                "slug": "__proto__",
+                "organizationId": null,
+                "userId": "527a38c1-ea81-43ec-beb8-c616b5195fd1",
+                "name": "__proto__"
+            },
+            "user": {
+                "id": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+                "firstName": "Mihhail",
+                "lastName": "Matisinets",
+                "name": "Mihhail Matisinets"
+            },
+            "seen": false
+        },
+        {
+            "id": "278876a6-24d2-4301-aafd-c14f4470c430",
+            "userId": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+            "description": "This privcay violations is submitted for testing purposes. Sorry.",
+            "datasetId": "c114a8a9-40ed-46c9-824f-dda1d92776de",
+            "status": "pending",
+            "createdAt": "2021-12-06T10:37:40.227Z",
+            "dataset": {
+                "id": "c114a8a9-40ed-46c9-824f-dda1d92776de",
+                "nameEt": "__proto__",
+                "nameEn": "__proto__",
+                "slug": "__proto__",
+                "organizationId": null,
+                "userId": "527a38c1-ea81-43ec-beb8-c616b5195fd1",
+                "name": "__proto__"
+            },
+            "user": {
+                "id": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+                "firstName": "Mihhail",
+                "lastName": "Matisinets",
+                "name": "Mihhail Matisinets"
+            },
+            "seen": false
+        }
+    ]
+}
