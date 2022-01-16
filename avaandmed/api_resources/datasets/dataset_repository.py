@@ -1,6 +1,5 @@
 from typing import List
 from pydantic import parse_obj_as
-import responses
 from avaandmed.http.http_client import HttpClient, HttpMethod
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.entities import (

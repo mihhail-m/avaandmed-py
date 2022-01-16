@@ -1,3 +1,5 @@
+from typing import Optional
+from avaandmed.api_resources.organizations import Organizations
 from avaandmed.http.http_client import HttpClient
 
 
@@ -9,7 +11,7 @@ class Avaandmed:
         self._key_id = key_id
         self._http_client = HttpClient(base_hostname, api_token, key_id)
         self._datasets = None
-        self._organizations = None
+        self._organizations = None  # type: Optional[Organizations]
         self._users = None
 
     @property
@@ -27,11 +29,11 @@ class Avaandmed:
             self._datasets = Datasets(http_client=self._http_client)
         return self._datasets
 
-    @property
-    def organizations(self):
+    def organizations(self, id: str):
         if self._organizations is None:
             from avaandmed.api_resources.organizations import Organizations
-            self._organizations = Organizations(http_client=self._http_client)
+            self._organizations = Organizations(
+                id=id, http_client=self._http_client)
         return self._organizations
 
     @property
