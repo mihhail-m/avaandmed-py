@@ -19,6 +19,11 @@ def key_id():
     return KEY_ID
 
 
+@pytest.fixture
+def my_org_id():
+    return 'cf923536-2dbb-4e2e-8167-218e52316283'
+
+
 @pytest.fixture()
 def avaandmed_client():
     return Avaandmed(API_TOKEN, KEY_ID, BASE_HOSTNAME)
@@ -32,6 +37,11 @@ def datasets(avaandmed_client: Avaandmed):
 @pytest.fixture
 def users_datasets(avaandmed_client: Avaandmed):
     return avaandmed_client.users.me.dataset
+
+
+@pytest.fixture()
+def organization_datasets(avaandmed_client: Avaandmed, my_org_id: str):
+    return avaandmed_client.organizations(my_org_id).my_orgranization.dataset
 
 
 @pytest.fixture(scope='class')

@@ -1,30 +1,33 @@
 import pytest
 import responses
 
+from typing import List
+from avaandmed.api_resources.organizations.my_organization import OrganizationDataset
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.entities import AccessPermission, DatasetRating, File, Identifier, Index, Polynomial, PrivacyViolation, ProcessingStatus
-from avaandmed.api_resources.users.me import UserDataset
 from avaandmed.exceptions import AvaandmedApiExcepiton
-from tests.data_mock import DataJsonMock
+from avaandmed.utils import build_endpoint
 from .request_mock import RequestMock
+from .data_mock import DataJsonMock
 
-DATASET_ID_2 = '4446e091-adfc-4e1a-9e13-733d2b95f6e4'
+DATASET_ID = '4446e091-adfc-4e1a-9e13-733d2b95f6e4'
 DATASET_SLUG = 'eesti-rahvastikutiheduse-1-km-x-1-km-ruutkaart'
 FILE_ID = 'b88c9edc-cf81-47a5-aaf0-40d2af2c73a1'
 VIOLTION_ID = '278876a6-24d2-4301-aafd-c14f4470c430'
 PERM_ID = 'af1a7ed9-31c9-45a5-a8b3-e59345538444'
 
 
-class TestUsersDatasets:
+class TestOrganizations:
 
     @pytest.fixture(autouse=True)
-    def _request_mock(self, request_mock: RequestMock):
+    def _request_mock(self, request_mock: RequestMock, my_org_id: str):
         self.request_mock = request_mock
-        self.request_mock.endpoint = '/users/me/datasets'
+        self.request_mock.endpoint = f"/organizations/my-organizations/{my_org_id}"
+        self.my_org_dataset_base = "/datasets"
 
     @pytest.fixture(autouse=True)
-    def _users_datasets(self, users_datasets: UserDataset):
-        self.datasets = users_datasets
+    def _my_org_datasets(self, organization_datasets: OrganizationDataset):
+        self.datasets = organization_datasets
 
     @pytest.fixture(autouse=True)
     def _data_mock(self, data_mock: DataJsonMock):
@@ -37,18 +40,23 @@ class TestUsersDatasets:
         self.mock_files_list = data_mock.MOCK_FILES_LIST
         self.mock_file_index = data_mock.MOCK_FILE_INDEX
 
+    def build_mock_endpoint(self, resources: List[str] = []):
+        return build_endpoint(self.my_org_dataset_base, resources)
+
     @responses.activate
     def test_get_by_id(self):
         self.request_mock.stub_for(
-            url=f"/{DATASET_ID_2}", json=self.mock_dataset)
-        my_ds = self.datasets.get_by_id(DATASET_ID_2)
-
-        assert isinstance(my_ds, Dataset)
+            url=self.build_mock_endpoint([DATASET_ID]),
+            json=self.mock_dataset
+        )
+        my_org_ds = self.datasets.get_by_id(DATASET_ID)
+        assert isinstance(my_org_ds, Dataset)
 
     @responses.activate
     def test_negative_get_by_id(self):
         self.request_mock.stub_for(
-            url=f"/sdfsdf", json=self.mock_error, status=404
+            url=self.build_mock_endpoint(['sdfsdf']),
+            json=self.mock_error, status=404
         )
 
         with pytest.raises(AvaandmedApiExcepiton):
@@ -57,7 +65,8 @@ class TestUsersDatasets:
     @responses.activate
     def test_get_by_slug(self):
         self.request_mock.stub_for(
-            url=f"/slug/{DATASET_SLUG}", json=self.mock_dataset)
+            url=self.build_mock_endpoint(['slug', DATASET_SLUG]),
+            json=self.mock_dataset)
         dataset = self.datasets.get_by_slug(DATASET_SLUG)
 
         assert isinstance(dataset, Dataset)
@@ -65,22 +74,24 @@ class TestUsersDatasets:
     @responses.activate
     def test_get_dataset_list(self):
         self.request_mock.stub_for(
-            url='', json=self.mock_dataset_list)
+            url=f"{self.my_org_dataset_base}",
+            json=self.mock_dataset_list)
         dataset_list = self.datasets.get_dataset_list()
 
         assert isinstance(dataset_list[0], Dataset)
 
     @responses.activate
     def test_get_file_preview(self):
-        url = f"/{DATASET_ID_2}/files/{FILE_ID}/preview"
+        url = self.build_mock_endpoint(
+            [DATASET_ID, 'files', FILE_ID, 'preview'])
         self.request_mock.stub_for(url=url, json=self.mock_file_preview)
-        preview = self.datasets.get_file_rows_preview(DATASET_ID_2, FILE_ID)
+        preview = self.datasets.get_file_rows_preview(DATASET_ID, FILE_ID)
 
         assert preview is not None
 
     @responses.activate
     def test_get_all_privacy_violations(self):
-        url = "/privacy-violations"
+        url = self.build_mock_endpoint(['privacy-violations'])
         self.request_mock.stub_for(url=url, json=self.mock_privacy_violations)
         privacy_violations = self.datasets.get_all_privacy_violations()
 
@@ -89,7 +100,7 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_get_privacy_violation_by_id(self):
-        url = f"/privacy-violations/{VIOLTION_ID}"
+        url = self.build_mock_endpoint(['privacy-violations', VIOLTION_ID])
         json = {
             "data": {
                 "id": "c1e5e65e-3b1b-477e-966f-e402d1838c3a",
@@ -123,7 +134,8 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_consider_privacy_violation(self):
-        url = f"/privacy-violations/{VIOLTION_ID}/consider"
+        url = self.build_mock_endpoint(
+            ['privacy-violations', VIOLTION_ID, 'consider'])
         self.request_mock.stub_for(url=url, method=responses.PUT, body='')
         result = self.datasets.consider_privacy_violation(VIOLTION_ID)
 
@@ -131,7 +143,8 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_disregard_privacy_violation(self):
-        url = f"/privacy-violations/{VIOLTION_ID}/disregard"
+        url = self.build_mock_endpoint(
+            ['privacy-violations', VIOLTION_ID, 'disregard'])
         self.request_mock.stub_for(url, method=responses.PUT, body='')
         result = self.datasets.disregard_privacy_violtion(VIOLTION_ID)
 
@@ -139,7 +152,7 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_get_all_permissions(self):
-        url = f"/access-permissions"
+        url = self.build_mock_endpoint(['access-permissions'])
         self.request_mock.stub_for(url, json=self.mock_access_perms)
         perms = self.datasets.get_all_access_permissions()
 
@@ -147,7 +160,7 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_get_access_permission(self):
-        url = f"/access-permissions/{PERM_ID}"
+        url = self.build_mock_endpoint(['access-permissions', PERM_ID])
         json = {
             "data": {
                 "id": "af1a7ed9-31c9-45a5-a8b3-e59345538444",
@@ -181,7 +194,8 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_approve_permission(self):
-        url = f"/access-permissions/{PERM_ID}/approve"
+        url = self.build_mock_endpoint(
+            ['access-permissions', PERM_ID, 'approve'])
         self.request_mock.stub_for(url, method=responses.PUT, body='')
         result = self.datasets.approve_access_permission(PERM_ID)
 
@@ -189,7 +203,8 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_decline_permission(self):
-        url = f"/access-permissions/{PERM_ID}/decline"
+        url = self.build_mock_endpoint(
+            ['access-permissions', PERM_ID, 'decline'])
         self.request_mock.stub_for(url, method=responses.PUT, body='')
         result = self.datasets.decline_access_permission(PERM_ID)
 
@@ -197,7 +212,7 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_get_latest_pending(self):
-        url = "/latest/pending"
+        url = self.build_mock_endpoint(['latest', 'pending'])
         self.request_mock.stub_for(url=url, json=self.mock_dataset)
         dataset = self.datasets.get_latest_pending()
 
@@ -206,55 +221,56 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_delete_dataset(self):
-        url = f"/{DATASET_ID_2}"
+        url = self.build_mock_endpoint([DATASET_ID])
         self.request_mock.stub_for(url=url, method=responses.DELETE, json={
             "data": "Dataset deleted"
         })
-        result = self.datasets.delete(DATASET_ID_2)
+        result = self.datasets.delete(DATASET_ID)
 
         assert result is True
 
     @responses.activate
     def test_update_dataset(self):
-        url = f"/{DATASET_ID_2}"
+        url = self.build_mock_endpoint([DATASET_ID])
         params = {
             "maintainerPhone": "+37255213451",
             "maintainerEmail": "new_email@gmail.com"
         }
         self.request_mock.stub_for(url=url, method=responses.PUT)
-        result = self.datasets.update(DATASET_ID_2, params)
+        result = self.datasets.update(DATASET_ID, params)
 
         assert result is True
 
     @responses.activate
     def test_discard_dataset(self):
-        url = f"/{DATASET_ID_2}/discard"
+        url = self.build_mock_endpoint([DATASET_ID, 'discard'])
         self.request_mock.stub_for(url=url, method=responses.PUT)
-        result = self.datasets.discard(DATASET_ID_2)
+        result = self.datasets.discard(DATASET_ID)
 
         assert result is True
 
     @responses.activate
     def test_publish_dataset(self):
-        url = f"/{DATASET_ID_2}/publish"
+        url = self.build_mock_endpoint([DATASET_ID, 'publish'])
         self.request_mock.stub_for(url=url, method=responses.PUT)
-        result = self.datasets.publish(DATASET_ID_2)
+        result = self.datasets.publish(DATASET_ID)
 
         assert result is True
 
     @responses.activate
     def test_get_files(self):
-        url = f"/{DATASET_ID_2}/files"
+        url = self.build_mock_endpoint([DATASET_ID, 'files'])
         self.request_mock.stub_for(url, json=self.mock_files_list)
-        result = self.datasets.get_all_files(DATASET_ID_2)
+        result = self.datasets.get_all_files(DATASET_ID)
 
         assert isinstance(result[0], File)
 
     @responses.activate
     def test_get_file_index(self):
-        url = f"/{DATASET_ID_2}/files/{FILE_ID}/indices"
+        url = self.build_mock_endpoint(
+            [DATASET_ID, 'files', FILE_ID, 'indices'])
         self.request_mock.stub_for(url, json=self.mock_file_index)
-        result = self.datasets.get_file_index(DATASET_ID_2, FILE_ID)
+        result = self.datasets.get_file_index(DATASET_ID, FILE_ID)
 
         assert isinstance(result, Index)
         assert isinstance(result.polynomial[0], Polynomial)
@@ -262,25 +278,25 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_get_file_rows(self):
-        url = f"/{DATASET_ID_2}/files/{FILE_ID}"
+        url = self.build_mock_endpoint([DATASET_ID, 'files', FILE_ID])
         self.request_mock.stub_for(url, json=self.mock_file_preview)
-        result = self.datasets.get_file_rows_with_errors(DATASET_ID_2, FILE_ID)
+        result = self.datasets.get_file_rows_with_errors(DATASET_ID, FILE_ID)
 
         assert result is not None
 
     @responses.activate
     def test_delete_file(self):
-        url = f"/{DATASET_ID_2}/files/{FILE_ID}"
+        url = self.build_mock_endpoint([DATASET_ID, 'files', FILE_ID])
         self.request_mock.stub_for(url=url, method=responses.DELETE, json={
             "data": "deleted"
         })
-        result = self.datasets.delete_file(DATASET_ID_2, FILE_ID)
+        result = self.datasets.delete_file(DATASET_ID, FILE_ID)
 
         assert result is True
 
     @responses.activate
     def test_get_user_dataset_rating(self):
-        url = f"/{DATASET_SLUG}/ratings"
+        url = self.build_mock_endpoint([DATASET_SLUG, 'ratings'])
         json = {
             "data": [
                 {
@@ -313,7 +329,8 @@ class TestUsersDatasets:
 
     @responses.activate
     def test_create_file_indices(self):
-        url = f"/{DATASET_ID_2}/files/{FILE_ID}/indices"
+        url = self.build_mock_endpoint(
+            [DATASET_ID, 'files', FILE_ID, 'indices'])
         json = {
             "identifier": [
                 {
@@ -338,7 +355,7 @@ class TestUsersDatasets:
         self.request_mock.stub_for(
             url=url, method=responses.POST, json=response_json, status=201)
         result = self.datasets.create_file_indices(
-            DATASET_ID_2,
+            DATASET_ID,
             FILE_ID,
             json
         )
