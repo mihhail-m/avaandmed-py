@@ -2,9 +2,10 @@ import pytest
 import responses
 
 from typing import List
-from avaandmed.api_resources.organizations.my_organization import OrganizationDataset
+from avaandmed.api_resources.organizations.my_organization import MyOrganization, OrganizationDataset
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.entities import AccessPermission, DatasetRating, File, Identifier, Index, Polynomial, PrivacyViolation, ProcessingStatus
+from avaandmed.api_resources.organizations.organization import Organization
 from avaandmed.exceptions import AvaandmedApiExcepiton
 from avaandmed.utils import build_endpoint
 from .request_mock import RequestMock
@@ -15,6 +16,7 @@ DATASET_SLUG = 'eesti-rahvastikutiheduse-1-km-x-1-km-ruutkaart'
 FILE_ID = 'b88c9edc-cf81-47a5-aaf0-40d2af2c73a1'
 VIOLTION_ID = '278876a6-24d2-4301-aafd-c14f4470c430'
 PERM_ID = 'af1a7ed9-31c9-45a5-a8b3-e59345538444'
+MY_ORG_ID = 'cf923536-2dbb-4e2e-8167-218e52316283'
 
 
 class TestOrganizations:
@@ -24,10 +26,15 @@ class TestOrganizations:
         self.request_mock = request_mock
         self.request_mock.endpoint = f"/organizations/my-organizations/{my_org_id}"
         self.my_org_dataset_base = "/datasets"
+        self.my_orgs_endpoint = "/organizations/my-organizations"
 
     @pytest.fixture(autouse=True)
     def _my_org_datasets(self, organization_datasets: OrganizationDataset):
         self.datasets = organization_datasets
+
+    @pytest.fixture(autouse=True)
+    def _my_org(self, my_org: MyOrganization):
+        self.my_org = my_org
 
     @pytest.fixture(autouse=True)
     def _data_mock(self, data_mock: DataJsonMock):
@@ -362,3 +369,104 @@ class TestOrganizations:
 
         assert result is not None
         assert result is True
+
+    @responses.activate
+    def test_get_list_orgs(self):
+        my_org = self.my_org
+        json_mock = {
+            "data": [
+                {
+                    "id": "cf923536-2dbb-4e2e-8167-218e52316283",
+                    "regCode": "11383889",
+                    "name": "TARA Test AS",
+                    "slug": "organization-slug-22",
+                    "contact": "User user",
+                    "contactEmail": "test@test.se",
+                    "description": "Andmetöötlus, veebihosting jms tegevused",
+                    "isPublicBody": None,
+                    "notifications": [
+                        "DATASET_COMMENTED",
+                        "DATASET_RATED",
+                        "DATASET_ACCESS_REQUEST",
+                        "DATA_WISH_NEW",
+                        "DATASET_PRIVACY_VIOLATION"
+                    ],
+                    "orgUser": {
+                        "id": "c8ece9d8-a5aa-45dd-951c-11a0b86a572a",
+                        "organizationId": "cf923536-2dbb-4e2e-8167-218e52316283",
+                        "userId": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+                        "userJobTitle": "tudeng",
+                        "userRole": "manager",
+                        "userDomain": "local",
+                        "userRoleValidFrom": "2021-11-10T14:34:02.000Z",
+                        "userRoleValidTo": "2026-11-10T14:34:02.000Z"
+                    },
+                    "domain": "local"
+                },
+                {
+                    "id": "cf923536-2dbb-4e2e-8167-218e52316283",
+                    "regCode": "11383889",
+                    "name": "TARA Test AS",
+                    "slug": "organization-slug-22",
+                    "contact": "User user",
+                    "contactEmail": "test@test.se",
+                    "description": "Andmetöötlus, veebihosting jms tegevused",
+                    "isPublicBody": None,
+                    "notifications": [
+                        "DATASET_COMMENTED",
+                        "DATASET_RATED",
+                        "DATASET_ACCESS_REQUEST",
+                        "DATA_WISH_NEW",
+                        "DATASET_PRIVACY_VIOLATION"
+                    ],
+                    "orgUser": {
+                        "id": "c8ece9d8-a5aa-45dd-951c-11a0b86a572a",
+                        "organizationId": "cf923536-2dbb-4e2e-8167-218e52316283",
+                        "userId": "fa9d654b-48ed-49f2-871d-b70c535d90bc",
+                        "userJobTitle": "tudeng",
+                        "userRole": "manager",
+                        "userDomain": "local",
+                        "userRoleValidFrom": "2021-11-10T14:34:02.000Z",
+                        "userRoleValidTo": "2026-11-10T14:34:02.000Z"
+                    },
+                    "domain": "local"
+                }
+            ]
+        }
+        self.request_mock.endpoint = self.my_orgs_endpoint
+        self.request_mock.stub_for(url='', json=json_mock)
+        list_orgs = my_org.get_list_my_orgs()
+
+        assert list_orgs is not None
+        assert len(list_orgs) == 2
+        assert isinstance(list_orgs[0], Organization)
+
+    @responses.activate
+    def test_get_org_by_id(self):
+        my_org = self.my_org
+        json_mock = {
+            "data": {
+                "id": "cf923536-2dbb-4e2e-8167-218e52316283",
+                "regCode": "11383889",
+                "name": "TARA Test AS",
+                "slug": "organization-slug-22",
+                "contact": "User user",
+                "contactEmail": "test@test.se",
+                "description": "Andmetöötlus, veebihosting jms tegevused",
+                "isPublicBody": None,
+                "notifications": [
+                    "DATASET_COMMENTED",
+                    "DATASET_RATED",
+                    "DATASET_ACCESS_REQUEST",
+                    "DATA_WISH_NEW",
+                    "DATASET_PRIVACY_VIOLATION"
+                ],
+                "image": None
+            }
+        }
+        self.request_mock.endpoint = f"{self.my_orgs_endpoint}/{MY_ORG_ID}"
+        self.request_mock.stub_for(url='', json=json_mock)
+        org = my_org.get_my_org_by_id(MY_ORG_ID)
+
+        assert org is not None
+        assert isinstance(org, Organization)

@@ -163,8 +163,6 @@ class TestDatasets:
         dataset = self.datasets.get_by_id(DATASET_ID)
         organization_dict = dataset.organization.dict()
         assert isinstance(dataset.organization, Organization)
-        for v in organization_dict.values():
-            assert v is not None
 
     @responses.activate
     def test_files_are_deserialized(self):

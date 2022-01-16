@@ -39,9 +39,14 @@ def users_datasets(avaandmed_client: Avaandmed):
     return avaandmed_client.users.me.dataset
 
 
-@pytest.fixture()
+@pytest.fixture
 def organization_datasets(avaandmed_client: Avaandmed, my_org_id: str):
     return avaandmed_client.organizations(my_org_id).my_orgranization.dataset
+
+
+@pytest.fixture
+def my_org(avaandmed_client: Avaandmed, my_org_id: str):
+    return avaandmed_client.organizations(my_org_id).my_orgranization
 
 
 @pytest.fixture(scope='class')
