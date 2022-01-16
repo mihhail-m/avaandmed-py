@@ -1,6 +1,7 @@
-from typing import Optional, List
+from typing import Optional, List, Any
 from avaandmed.api_resources.entities import Notification
 from avaandmed.api_resources import ApiResource
+from avaandmed.api_resources.organizations.organization_user import OrgUser
 
 
 class Organization(ApiResource):
@@ -16,3 +17,6 @@ class Organization(ApiResource):
     description: Optional[str]
     is_public_body: Optional[bool]
     notifications: Optional[List[Notification]]
+    org_user: Optional[OrgUser]
+    domain: Optional[str]
+    image: Optional[Any]  # TODO
