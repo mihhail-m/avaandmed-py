@@ -11,6 +11,7 @@ from avaandmed.api_resources.entities import (
     Index,
     Preview,
     PrivacyViolation)
+from avaandmed.utils import build_endpoint
 
 
 class Me:
@@ -50,14 +51,11 @@ class UserDataset:
         url = self.__build_url(['slug', slug])
         return self._dataset_repository._get_dataset(url)
 
-    def get_dataset_list(self, limit: int = 20) -> List[Dataset]:
+    def get_dataset_list(self) -> List[Dataset]:
         """
         Retrieve list of all Datasets. Default limit is 20, but can be adjusted.
         """
-        if limit <= 0:
-            raise AvaandmedException('Limit cannot be less or equal to 0.')
-
-        url = f"{self._ENDPOINT}?limit={limit}"
+        url = f"{self._ENDPOINT}"
         return self._dataset_repository._get_dataset_list(url)
 
     def get_file_rows_preview(self, id: str, file_id: str) -> Preview:
@@ -254,4 +252,4 @@ class UserDataset:
         return self._dataset_repository._get_user_dataset_rating_by_slug(url)
 
     def __build_url(self, url_values: List[str]):
-        return f"{self._ENDPOINT}/{'/'.join(url_values)}"
+        return build_endpoint(self._ENDPOINT, url_values)
