@@ -1,8 +1,10 @@
 from typing import List
+
+from pydantic.tools import parse_obj_as
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.datasets.dataset_repository import DatasetRepository
-from avaandmed.http.http_client import HttpClient
-from avaandmed.exceptions import AvaandmedException
+from avaandmed.api_resources.organizations.organization import Organization
+from avaandmed.http.http_client import HttpClient, HttpMethod
 from avaandmed.api_resources.entities import (
     AccessPermission,
     DatasetRatingList,
@@ -32,6 +34,22 @@ class MyOrganization:
             self._dataset = OrganizationDataset(
                 base_end_point, self._http_client)
         return self._dataset
+
+    def get_list_my_orgs(self) -> List[Organization]:
+        """
+        Retrieves list of organizations user belongs to.
+        """
+        url = self._ENDPOINT
+        organizations_json = self._http_client.request(HttpMethod.GET, url=url)
+        return parse_obj_as(List[Organization], organizations_json)
+
+    def get_my_org_by_id(self, id: str) -> Organization:
+        """
+        Retrieves user's organization by ID.
+        """
+        url = f"{self._ENDPOINT}/{id}"
+        organization = self._http_client.request(HttpMethod.GET, url=url)
+        return parse_obj_as(Organization, organization)
 
 
 class OrganizationDataset:
