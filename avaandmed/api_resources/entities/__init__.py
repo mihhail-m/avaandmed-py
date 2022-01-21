@@ -65,6 +65,14 @@ class Category(ApiResource):
     ems_ids: Optional[List[int]]
 
 
+class EmsCategory(ApiResource):
+    """
+    Handles Ems categories serialization.
+    """
+    id: int
+    name: str
+
+
 class Region(ApiResource):
     """
     Handles regions serialization.
@@ -272,3 +280,14 @@ class DatasetRating(ApiResource):
 
 
 DatasetRatingList = List[DatasetRating]
+
+
+class Language(ApiResource):
+    code: str
+    name: str
+
+
+class KeywordInfo(ApiResource):
+    id: int
+    name: str
+    ems_id: Optional[str]

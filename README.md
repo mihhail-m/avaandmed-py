@@ -25,7 +25,7 @@ client = Avaandmed(api_token=token, key_id=key_id)
 ```
 
 ### Generic datasets
-Getting some generic dataset is quite straightforward. Just use `datasets` property provided by `client` instance.
+Getting some [Generic datasets](https://avaandmed.eesti.ee/api/dataset-docs/#/Generic%20dataset) is quite straightforward. Just use `datasets` property provided by `client` instance.
 
 ```python
 datasets: Datasets = client.datasets
@@ -48,7 +48,7 @@ client.dataset.file_privacy_violations('dataset_id', 'description')
 
 
 ### User's datasets
-User's own datasets can be accessed and interacted in the following way.
+[User](https://avaandmed.eesti.ee/api/dataset-docs/#/User's%20datasets)'s own datasets can be accessed and interacted in the following way.
 
 ```python
 me: Me = client.users.me
@@ -79,7 +79,8 @@ my_dataset.decline_access_permission('permission_id')
 ```
 
 ### Organization's API
-Organization's dataset can be accessed and interacted in the similar way as User's.
+[Organization](https://avaandmed.eesti.ee/api/dataset-docs/#/Organization's%20datasets)'s datasets can be accessed and interacted in the similar way as User's.
+
 ```python
 my_org = client.organization('org_id').my_organization
 my_org_ds = my_org.dataset
@@ -113,6 +114,22 @@ my_org_ds.approve_access_permission('permission_id')
 my_org_ds.decline_access_permission('permission_id')
 ```
 
+### Core's API
+Information from [Core](https://avaandmed.eesti.ee/api/dataset-docs/#/Core) endpoints also can be retrieved.
+
+```python
+key_id = 'key_id_value'
+token = 'token_value'
+client = Avaandmed(api_token=token, key_id=key_id)
+
+regions: List[Region] = client.get_regions() # return list of available regions
+categories: List[Category] = client.get_categories() # returns list of available categories
+
+# Since there are a lot of available keywords you can query keywords by providing
+# some specific word and also extend/limit returned list of keywords.
+# By default this methods returns just first 20 keywords.
+keywords: List[KeywordInfo] = client.get_keywords(search_word='some_word', limit=5)
+```
 
 ## Development
 It's recommend to use virtual enviroment during the development.

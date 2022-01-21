@@ -6,7 +6,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name='avaandmed',
-    version='0.2.1.dev',
+    version='0.3.0dev',
     description='Python library for Avaandmed(Open Data) portal API',
     long_description=long_description,
     long_description_content_type='text/markdown',
