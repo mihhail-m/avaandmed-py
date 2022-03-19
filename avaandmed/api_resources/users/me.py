@@ -5,6 +5,7 @@ from avaandmed.exceptions import AvaandmedException
 from avaandmed.http.http_client import HttpClient
 from avaandmed.api_resources.entities import (
     AccessPermission,
+    DatasetMetadata,
     DatasetRatingList,
     File,
     FileErrors,
@@ -250,6 +251,15 @@ class UserDataset:
         """
         url = self.__build_url([slug, 'ratings'])
         return self._dataset_repository._get_user_dataset_rating_by_slug(url)
+
+    def create_dataset_metadata(self, metadata: DatasetMetadata) -> Dataset:
+        """
+        Create metadata for dataset. 
+        This does not publishes dataset itself, but rather creates initial meta data. 
+        To publish dataset using respective method.
+        """
+        url = self._ENDPOINT
+        return self._dataset_repository._create_metadata(url, metadata)
 
     def __build_url(self, url_values: List[str]):
         return build_endpoint(self._ENDPOINT, url_values)
