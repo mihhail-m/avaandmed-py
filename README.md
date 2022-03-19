@@ -60,11 +60,22 @@ specific_ds: Dataset = me.get_by_id('dataset_id')
 # Delete specific dataset
 my_dataset.delete('dataset_id')
 # Update dataset
-# TODO
+# To update dataset you need to provide a dictionary with fields you wish to update.
+# Fields should be camelCased as per official Swagger document.
+updateParams = {
+    "maintainerPhone": "37255511122",
+    "maintenerEmail": "maintainer@mail.com"
+}
+my_dataset.update(updateParams)
 
-# Create dataset
-# TODO
-
+# Create dataset metadata
+# To create dataset's metadata you can use DatasetMetadata model.
+# For user's convinience parameters can be provided in camelCase manner to match 
+# naming convention of the JSON that is used by Open Data.
+# There are fields that are required to be filled and some don't. Optional fields can be left 
+# out.
+metadata: DatasetMetadata = DatasetMetadata(nameEn="new dataset", nameEt="new dataset"...)
+my_dataset.create_dataset_metadata(metadata)
 # You can consider specific privacy violations for your dataset
 my_dataset.consider_privacy_violation('id')
 
@@ -96,11 +107,22 @@ specific_ds: Dataset = my_org_ds.get_by_id('dataset_id')
 # Delete specific dataset
 my_org_ds.delete('dataset_id')
 # Update dataset
-# TODO
+# To update dataset you need to provide a dictionary with fields you wish to update.
+# Fields should be camelCased as per official Swagger document.
+updateParams = {
+    "maintainerPhone": "37255511122",
+    "maintenerEmail": "maintainer@mail.com"
+}
+my_org_ds.update(updateParams)
 
-# Create dataset
-# TODO
-
+# Create dataset metadata
+# To create dataset's metadata you can use DatasetMetadata model.
+# For user's convinience parameters can be provided in camelCase manner to match 
+# naming convention of the JSON that is used by Open Data.
+# There are fields that are required to be filled and some don't. Optional fields can be left 
+# out.
+metadata: DatasetMetadata = DatasetMetadata(nameEn="new dataset", nameEt="new dataset"...)
+my_org_ds.create_dataset_metadata(metadata)
 # You can consider specific privacy violations for your dataset
 my_org_ds.consider_privacy_violation('id')
 
@@ -129,6 +151,51 @@ categories: List[Category] = client.get_categories() # returns list of available
 # some specific word and also extend/limit returned list of keywords.
 # By default this methods returns just first 20 keywords.
 keywords: List[KeywordInfo] = client.get_keywords(search_word='some_word', limit=5)
+```
+
+### Note on DatasetMetadata class
+This class has required and optional fields. Due to amount of fields that this class contains it is easier to put documentation of that class in here rather that trying to compress it into docstring. Hence this section.
+
+```python
+class DatasetMetadata(ApiResource):
+    name_et: str = Field(...)
+    name_en: str = Field(...)
+    description_et: str = Field(...)
+    description_en: str = Field(...)
+    maintainer: str = Field(...)
+    maintainer_email: str = Field(...)
+    maintainer_phone: str = Field(...)
+    keyword_ids: List[int] = Field(...)
+    category_ids: List[int] = Field(...)
+    region_ids: List[int] = Field(...)
+    data_from: datetime = Field(...)
+    available_to: datetime = Field(...)
+    update_interval_unit: UpdateIntervalUnit = Field(...)
+    update_interval_frequency: int = Field(...)
+    # optional fields
+    conformities: Optional[List[Conformity]] = []
+    lineage: Optional[str]
+    spatial_representation_type: Optional[str]
+    spatial_data_service_type: Optional[str]
+    topic_categories: Optional[List[TopicCategory]] = []
+    pixel_size: Optional[int]
+    coordinate_reference_system_ids: Optional[List[int]] = []
+    south_latitude: Optional[str]
+    north_latitude: Optional[str]
+    west_longitude: Optional[str]
+    east_longitude: Optional[str]
+    language: Optional[str]
+    qualified_attribution: Optional[str]
+    was_generated_by: Optional[str]
+    spatial_resolution: Optional[str]
+    temporal_resolution: Optional[str]
+    maturity: Optional[str]
+    parent_dataset_ids: Optional[List[str]]
+    child_dataset_ids: Optional[List[str]]
+    version_notes: Optional[str]
+    data_to: Optional[datetime]
+    landing_page: Optional[str]
+    resource_type: Optional[ResourceType]
 ```
 
 ## Development
