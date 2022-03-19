@@ -4,6 +4,7 @@ from avaandmed.http.http_client import HttpClient, HttpMethod
 from avaandmed.api_resources.datasets.dataset import Dataset
 from avaandmed.api_resources.entities import (
     AccessPermission,
+    DatasetMetadata,
     DatasetRatingList,
     File,
     FileColumn,
@@ -88,8 +89,10 @@ class DatasetRepository:
         result = self._http_client.request(HttpMethod.GET, url)
         return parse_obj_as(List[SearchResult], result)
 
-    def _create_metadata(self, url: str, data: dict):
-        pass
+    def _create_metadata(self, url: str, data: DatasetMetadata):
+        result = self._http_client.request(
+            HttpMethod.POST, url=url, data=data.json(by_alias=True))
+        return parse_obj_as(Dataset, result)
 
     def _get_privacy_violations(self, url: str) -> List[PrivacyViolation]:
         result = self._http_client.request(HttpMethod.GET, url)

@@ -1,4 +1,3 @@
-from pathlib import Path
 from requests import Session, exceptions
 from base64 import b64encode
 from enum import Enum
@@ -25,7 +24,8 @@ class HttpClient:
 
     def __init__(self, hostname: str, api_key: str = None, key_id: str = None) -> None:
         self.__HEADERS = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': '*/*'
         }
         self.__SCHEME = 'https'
         self.__BASE_ENDPOINT = 'api'
@@ -82,7 +82,7 @@ class HttpClient:
                 res = s.request(
                     method=method.name,
                     url=url,
-                    json=data
+                    data=data
                 )
                 res.raise_for_status()
 
