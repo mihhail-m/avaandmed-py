@@ -1,5 +1,8 @@
+from datetime import datetime
 from typing import Any, Dict, List, Optional
 from enum import Enum
+
+from pydantic import Field
 from avaandmed.api_resources import ApiResource
 from avaandmed.api_resources.users.user import User
 
@@ -291,3 +294,47 @@ class KeywordInfo(ApiResource):
     id: int
     name: str
     ems_id: Optional[str]
+
+
+class DatasetMetadata(ApiResource):
+    name_et: str = Field(...)
+    name_en: str = Field(...)
+    description_et: str = Field(...)
+    description_en: str = Field(...)
+    maintainer: str = Field(...)
+    maintainer_email: str = Field(...)
+    maintainer_phone: str = Field(...)
+    # TODO: Find a way to map ids to actual values
+    keyword_ids: List[int] = Field(...)
+    # TODO: Find a way to map ids to actual values
+    category_ids: List[int] = Field(...)
+    # TODO: Find a way to map ids to actual values
+    region_ids: List[int] = Field(...)
+    data_from: datetime = Field(...)
+    available_to: datetime = Field(...)
+    update_interval_unit: UpdateIntervalUnit = Field(...)
+    update_interval_frequency: int = Field(...)
+    # optional fields
+    conformities: Optional[List[Conformity]] = []
+    lineage: Optional[str]
+    spatial_representation_type: Optional[str]
+    spatial_data_service_type: Optional[str]
+    topic_categories: Optional[List[TopicCategory]] = []
+    pixel_size: Optional[int]
+    coordinate_reference_system_ids: Optional[List[int]] = []
+    south_latitude: Optional[str]
+    north_latitude: Optional[str]
+    west_longitude: Optional[str]
+    east_longitude: Optional[str]
+    language: Optional[str]
+    qualified_attribution: Optional[str]
+    was_generated_by: Optional[str]
+    spatial_resolution: Optional[str]
+    temporal_resolution: Optional[str]
+    maturity: Optional[str]
+    parent_dataset_ids: Optional[List[str]]
+    child_dataset_ids: Optional[List[str]]
+    version_notes: Optional[str]
+    data_to: Optional[datetime]
+    landing_page: Optional[str]
+    resource_type: Optional[ResourceType]
