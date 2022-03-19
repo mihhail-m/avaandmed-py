@@ -1,8 +1,7 @@
 import pytest
 import responses
-
 from avaandmed.api_resources.datasets.dataset import Dataset
-from avaandmed.api_resources.entities import AccessPermission, DatasetRating, File, Identifier, Index, Polynomial, PrivacyViolation, ProcessingStatus
+from avaandmed.api_resources.entities import AccessPermission, DatasetMetadata, DatasetRating, File, Identifier, Index, Polynomial, PrivacyViolation, ProcessingStatus, UpdateIntervalUnit
 from avaandmed.api_resources.users.me import UserDataset
 from avaandmed.exceptions import AvaandmedApiExcepiton
 from tests.data_mock import DataJsonMock
@@ -345,3 +344,28 @@ class TestUsersDatasets:
 
         assert result is not None
         assert result is True
+
+    @responses.activate
+    def test_create_dataset_metadata(self):
+        metadata = DatasetMetadata(
+            nameEt="name2",
+            nameEn="name2",
+            descriptionEt="desc",
+            descriptionEn="desc",
+            maintainer="mihhail",
+            maintainerEmail="mihhail@gmail.com",
+            maintainerPhone="+37255555555",
+            keywordIds=[20],
+            categoryIds=[1],
+            regionIds=[1],
+            dataFrom="2022-02-13T22:00:00.000Z",
+            availableTo="2022-02-28T21:59:59.999Z",
+            updateIntervalUnit=UpdateIntervalUnit.DAY,
+            updateIntervalFrequency=1)
+
+        self.request_mock.stub_for(
+            '', responses.POST, status=201, json=self.mock_dataset)
+        result = self.datasets.create_dataset_metadata(metadata)
+
+        assert result is not None
+        assert isinstance(result, Dataset)

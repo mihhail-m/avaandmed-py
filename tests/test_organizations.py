@@ -4,7 +4,7 @@ import responses
 from typing import List
 from avaandmed.api_resources.organizations.my_organization import MyOrganization, OrganizationDataset
 from avaandmed.api_resources.datasets.dataset import Dataset
-from avaandmed.api_resources.entities import AccessPermission, DatasetRating, File, Identifier, Index, Polynomial, PrivacyViolation, ProcessingStatus
+from avaandmed.api_resources.entities import AccessPermission, DatasetMetadata, DatasetRating, File, Identifier, Index, Polynomial, PrivacyViolation, ProcessingStatus, UpdateIntervalUnit
 from avaandmed.api_resources.organizations.organization import Organization
 from avaandmed.exceptions import AvaandmedApiExcepiton
 from avaandmed.utils import build_endpoint
@@ -470,3 +470,28 @@ class TestOrganizations:
 
         assert org is not None
         assert isinstance(org, Organization)
+
+    @responses.activate
+    def test_create_dataset_metadata(self):
+        metadata = DatasetMetadata(
+            nameEt="name8",
+            nameEn="name8",
+            descriptionEt="desc",
+            descriptionEn="desc",
+            maintainer="mihhail",
+            maintainerEmail="mihhail@gmail.com",
+            maintainerPhone="+37255555555",
+            keywordIds=[20],
+            categoryIds=[1],
+            regionIds=[1],
+            dataFrom="2022-02-13T22:00:00.000Z",
+            availableTo="2022-02-28T21:59:59.999Z",
+            updateIntervalUnit=UpdateIntervalUnit.DAY,
+            updateIntervalFrequency=1)
+
+        self.request_mock.stub_for(
+            '/datasets', responses.POST, status=201, json=self.mock_dataset)
+        result = self.datasets.create_dataset_metadata(metadata)
+
+        assert result is not None
+        assert isinstance(result, Dataset)
