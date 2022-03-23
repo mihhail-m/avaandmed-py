@@ -198,6 +198,30 @@ class DatasetMetadata(ApiResource):
     resource_type: Optional[ResourceType]
 ```
 
+### File uploading
+Users and Organizations can upload files for specific datasets.
+
+However there is something that needs to kept in mind before uploading files for freshly created datasets. 
+
+When uploading files for new datasets, make sure that dataset already has been *granted access* and *license*. Otherwise, unexpected my occur when trying to access dataset if file was uploaded beforehand.
+
+File uploading process is same for both User's and Organization's datasets.
+
+```python
+file_name: str = 'file.csv' # This is how your file will be called in Open Data.
+file_type: str = 'text/csv'
+file_path: str = 'path_to_file'
+dataset_id: str = 'dataset_id'
+
+# This will return object of type File
+file: File = my_datasets.upload_file(dataset_id, file_name, file_type, file_path)
+
+# And you can obviously access different attributes of the file provided by Open Data
+print(file.id)
+print(file.name)
+print(file.size)
+```
+
 ## Development
 It's recommend to use virtual enviroment during the development.
 
