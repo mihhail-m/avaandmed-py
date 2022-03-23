@@ -146,8 +146,18 @@ class DatasetRepository:
         self._http_client.request(HttpMethod.PUT, url)
         return True
 
-    def _upload_file(self, url: str, data: dict):
-        pass
+    # TODO: extract filename
+    # TODO: extract file type
+    def _upload_file(self, url: str, file_name: str, file_type: str, file_path: str):
+        with open(file_path, 'rb') as file:
+            files = [
+                ('files',
+                 (file_name, file, file_type))
+            ]
+            result = self._http_client.request(
+                HttpMethod.POST, url=url, files=files, headers={})
+
+            return parse_obj_as(File, result[0])
 
     def _get_files(self, url: str) -> List[File]:
         result = self._http_client.request(HttpMethod.GET, url)
