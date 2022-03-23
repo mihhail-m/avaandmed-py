@@ -195,12 +195,13 @@ class OrganizationDataset:
         url = self.__build_url([id, 'download-from-url'])
         return self._dataset_repository._download_file(url, outfile, data)
 
-    # TODO
-    # TODO: Typed data parameter instead of dictionary
-    # BLOCKED: Unclear how to upload a file
-    def upload_file(self, id: str, data: dict):
-        url = self.__build_url([id, 'upload'])
-        return self._dataset_repository._upload_file(url, data)
+    def upload_file(self, dataset_id: str, file_name: str, file_type: str, file_path: str):
+        """
+        Uploads file for a specific dataset.
+        Warning: File should be uploaded only after dataset was granted access status and license.
+        """
+        url = self.__build_url([dataset_id, 'upload'])
+        return self._dataset_repository._upload_file(url, file_name, file_type, file_path)
 
     def get_all_files(self, id: str) -> List[File]:
         """

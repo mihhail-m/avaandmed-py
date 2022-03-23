@@ -25,7 +25,8 @@ class HttpClient:
     def __init__(self, hostname: str, api_key: str = None, key_id: str = None) -> None:
         self.__HEADERS = {
             'Content-Type': 'application/json',
-            'Accept': '*/*'
+            'Accept': '*/*',
+            'Connection': 'keep-alive'
         }
         self.__SCHEME = 'https'
         self.__BASE_ENDPOINT = 'api'
@@ -68,7 +69,7 @@ class HttpClient:
 
             return res.json()['data']['accessToken']
 
-    def request(self, method: HttpMethod, url: str, data={}):
+    def request(self, method: HttpMethod, url: str, data={}, files={}, headers=None):
         """
         Generic request method to make request to the API.
         """
@@ -78,10 +79,15 @@ class HttpClient:
         with session as s:
             try:
                 access_token = self.__get_token()
+
+                if headers is not None:
+                    s.headers = headers
+
                 s.headers.update({'Authorization': f"Bearer {access_token}"})
                 res = s.request(
                     method=method.name,
                     url=url,
+                    files=files,
                     data=data
                 )
                 res.raise_for_status()
@@ -98,6 +104,8 @@ class HttpClient:
 
             if method == HttpMethod.POST or method == HttpMethod.PUT:
                 if res.content != b'':
+                    if 'data' in res.json():
+                        return res.json()['data']
                     return res.json()
                 return ''
 
