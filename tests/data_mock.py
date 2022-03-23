@@ -26,3 +26,4 @@ class DataJsonMock:
         self.MOCK_ACCESS_PERMISSIONS = load_data_from('access-perms.json')
         self.MOCK_FILES_LIST = load_data_from('files.json')
         self.MOCK_FILE_INDEX = load_data_from('file_index.json')
+        self.MOCK_FILE_PATH = DATA_DIR / 'HighestGrossers.csv'

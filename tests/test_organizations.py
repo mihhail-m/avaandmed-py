@@ -46,6 +46,7 @@ class TestOrganizations:
         self.mock_access_perms = data_mock.MOCK_ACCESS_PERMISSIONS
         self.mock_files_list = data_mock.MOCK_FILES_LIST
         self.mock_file_index = data_mock.MOCK_FILE_INDEX
+        self.mock_file_path = data_mock.MOCK_FILE_PATH
 
     def build_mock_endpoint(self, resources: List[str] = []):
         return build_endpoint(self.my_org_dataset_base, resources)
@@ -495,3 +496,30 @@ class TestOrganizations:
 
         assert result is not None
         assert isinstance(result, Dataset)
+
+    @responses.activate
+    def test_upload_file(self):
+        file_path = self.mock_file_path
+        url = f"/datasets/{DATASET_ID}/upload"
+        json_res = {
+            "data": [
+                {
+                    "name": "highestGrossers.csv",
+                    "mimetype": "text/csv",
+                    "size": 2707,
+                    "datasetId": "a25f9e33-cc44-43a5-988d-15af80de5c0b",
+                    "metadata": {},
+                    "processingStatus": "pending",
+                    "id": "5372cf83-8c59-4d4f-bf16-98581a09c733",
+                    "storageFilename": "5372cf83-8c59-4d4f-bf16-98581a09c733-PopularCreativeTypes-(1).csv"
+                }
+            ]
+        }
+        self.request_mock.stub_for(
+            url=url, method=responses.POST, status=201, json=json_res)
+        result = self.datasets.upload_file(
+            DATASET_ID, 'highestGrossers.csv', 'text/csv', file_path)
+
+        assert isinstance(result, File)
+        assert result.name == 'highestGrossers.csv'
+        assert result.mimetype == 'text/csv'
