@@ -10,7 +10,11 @@
 - Python 3.6+
 
 ## Installation
-## TODO
+Latest version of library can be installed via the following command:
+
+`python -m pip install avaandmed`
+
+For older versions refer to a project page on PYPI.
 
 ## Usage
 Firstly you going to need to import `avaandmed` package and create client instance. 
